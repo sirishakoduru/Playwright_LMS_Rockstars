@@ -1,0 +1,24 @@
+{
+  "name": "playwright_lms_rockstars",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirishakoduru/Playwright_LMS_Rockstars.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sirishakoduru/Playwright_LMS_Rockstars/issues"
+  },
+  "homepage": "https://github.com/sirishakoduru/Playwright_LMS_Rockstars#readme",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0",
+    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.13.9",
+    "playwright-bdd": "^8.2.1"
+  }
+}
