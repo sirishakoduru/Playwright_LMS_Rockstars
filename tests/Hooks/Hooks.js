@@ -24,10 +24,10 @@ Before(async function(){
 
   
 // });
-After (async function(){
-  await page.screenshot({ path: `screenshots/screenshot-${Date.now()}.png`, fullPage: true });
+After(async function(){
+  await this.page.screenshot({ path: `screenshots/screenshot-${Date.now()}.png`, fullPage: true });
   // await browser.close();
 
-})
+});
 // export { page, browser };
 // export { BeforeHook };
