@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "cucumber-js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sirishakoduru/Playwright_LMS_Rockstars.git"
@@ -20,5 +22,8 @@
     "@playwright/test": "^1.51.0",
     "@types/node": "^22.13.9",
     "playwright-bdd": "^8.2.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
   }
 }
