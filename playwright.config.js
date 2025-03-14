@@ -3,8 +3,8 @@ import { defineConfig, devices } from '@playwright/test';
 import {defineBddConfig} from 'playwright-bdd'
 
 const testDir = defineBddConfig ({
-  features: ['tests/Features'],
-  steps: ['tests/StepDefinitions/***.js']
+  features: ['tests/Features/Batch.feature'],
+  steps: ['tests/StepDefinitions/BatchStep.js','tests/Hooks/Hooks.js']
 
 });
 /**
@@ -19,9 +19,9 @@ const testDir = defineBddConfig ({
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir,
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -44,9 +44,10 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+
     },
 
-    {
+   /* {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
@@ -54,7 +55,7 @@ export default defineConfig({
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
-    },
+    },*/
 
     /* Test against mobile viewports. */
     // {
