@@ -3,15 +3,15 @@
 import { chromium } from "@playwright/test";
 import { Page } from "playwright";
 import { createBdd } from "playwright-bdd";
-const { Before, After,AfterStep } = createBdd();
+const { Before, After,AfterStep,test } = createBdd();
 
 let page;
 let browser;
 let context
 
 Before(async function(){
-   browser = await chromium.launch({ headless: false });
-   context = await browser.newContext();
+  browser = await chromium.launch({ headless: false });
+  context = await browser.newContext();
   this.page = await context.newPage();
 
 });
@@ -26,7 +26,7 @@ Before(async function(){
 // });
 After(async function(){
   await this.page.screenshot({ path: `screenshots/screenshot-${Date.now()}.png`, fullPage: true });
-  // await browser.close();
+  // await this.browser.close();
 
 });
 // export { page, browser };

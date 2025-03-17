@@ -19,8 +19,12 @@
   "homepage": "https://github.com/sirishakoduru/Playwright_LMS_Rockstars#readme",
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
-    "@playwright/test": "^1.51.0",
+    "@playwright/test": "^1.51.1",
     "@types/node": "^22.13.9",
+    "playwright": "^1.51.1",
     "playwright-bdd": "^8.2.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
   }
 }
