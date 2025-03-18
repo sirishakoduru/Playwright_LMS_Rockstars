@@ -1,12 +1,17 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
 import {defineBddConfig} from 'playwright-bdd'
+import dotenv from 'dotenv';
 
 const testDir = defineBddConfig ({
-  features: ['tests/Features/Batch.feature'],
-  steps: ['tests/StepDefinitions/BatchStep.js','tests/Hooks/Hooks.js']
-
+  features: ['tests/features/BatchPageNavigation.feature', 'tests/features/BatchPageValidation.feature'],
+  steps: ['tests/StepDefinitions/BatchPageNavigation_Step.js', 'tests/StepDefinitions/BatchPageValidation_Step.js','tests/Hooks/Hooks.js']
 });
+
+dotenv.config({
+  path: './env/.env'
+});
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv

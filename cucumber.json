@@ -1,41 +1,41 @@
-// {
+{
 
-//     "default": {
+    "default": {
 
-//         "paths": [
+        "paths": [
 
-//             "tests/Features/"
-//         ],
+            "tests/Features/"
+        ],
 
-//         "require": [
+        "require": [
 
-//             "tests/StepDefinitions/*.js"
-//         ],
+            "tests/StepDefinitions/**/*.js"
+        ],
 
-//         "formatOptions": {
+        "formatOptions": {
 
-//             "snippetInterface": "async-await"
+            "snippetInterface": "async-await"
 
-//         },
+        },
 
-//         "format": [
+        "format": [
 
-//             [
+            [
 
-//                 "html",
+                "html",
 
-//                 "cucumber-report.html"
+                "cucumber-report.html"
 
-//             ],
+            ],
 
-//             "summary",
+            "summary",
 
-//             "progress-bar",
+            "progress-bar",
 
-//             "json:./cucumber-report.json"
+            "json:./cucumber-report.json"
 
-//         ]
+        ]
 
-//     }
+    }
 
-// }
+}
