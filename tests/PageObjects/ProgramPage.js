@@ -16,8 +16,25 @@ export class ProgramPage {
             this.tableHeader = page.locator('//thead//tr//th[position() > 1]')
             //this.mainCheckBox=page.locator('//thead//tr//th[position() < 2]')
             this.mainCheckBox=page.locator("//div[@class='p-checkbox-box']")
+            //this.batchHeaders=page.locator("//thead[@class='p-datatable-thead']")
+            //this.batchLink=this.programLink = page.getByRole('button', { name: 'Batch' })
         }
 
+        async batchlink(){
+
+            return await this.batchLink.click()
+
+        }
+     
+        async batchHeadersNames(){
+          
+                const actualHeaderNames = await this.tableHeader.batchHeaders()
+                console.log(actualHeaderNames)
+                return actualHeaderNames.map(text => text.trim())
+    
+            
+
+        }
 
         async checkBoxOnHeader(){
 
