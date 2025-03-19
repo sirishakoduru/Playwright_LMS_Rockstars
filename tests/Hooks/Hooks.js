@@ -4,6 +4,7 @@ import { chromium } from "@playwright/test";
 import { Page } from "playwright";
 import { createBdd } from "playwright-bdd";
 const { Before, After,AfterStep,test } = createBdd();
+const { PageObjectManager } = require('../PageObjects/PageObjectManager')
 
 let page;
 let browser;
@@ -13,6 +14,8 @@ Before(async function(){
   browser = await chromium.launch({ headless: false });
   context = await browser.newContext();
   this.page = await context.newPage();
+  //creating an object of page object manager
+  this.poManager = new PageObjectManager(this.page)
 
 });
 // AfterStep(async function({result}) {
