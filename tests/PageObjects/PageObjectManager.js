@@ -1,6 +1,7 @@
 //const { LoginPage } = require("./LoginPage");
 const { ProgramPage } = require("./ProgramPage");
 const { CommonPage } = require("./CommonPage");
+const {LoginPage} = require ("./LoginPage")
 //exports.PageObjectManager=
 
 
@@ -34,6 +35,13 @@ export class PageObjectManager{
             this.commonPage=new CommonPage(this.page)
         }
         return this.commonPage
+    }
+
+    getLoginPage(){
+        if(!this.LoginPage){
+            this.LoginPage=new LoginPage(this.page)
+        }
+        return this.LoginPage
     }
 
 }
