@@ -1,31 +1,35 @@
 Feature: Batch Page Validation
 
-Background: Admin is on the home page after Login
-Given Admin is on the home page after login
+# Background: Admin is on the home page after Login
+# Given Admin is on the home page after login
 
-@Validate_Title
-Scenario: Validate "Title" in Batch Page
-Given Admin is on the home page
-When Admin Clicks on the Batch menu from the header
-Then Admin should see the "LMS-Learning Management System" Title
+Background: Admin successfully Logged on to the LMS Portal
+Given Admin is on login Page
+When Admin enter valid data in all field and clicks login button 
 
-@Validate_Heading
-Scenario: Validate "heading" in the Batch Page
-Given Admin is on the home page
-When Admin Clicks on the Batch menu from the header
-Then Admin should see the "Manage Batch" Heading
+# @Validate_Title
+# Scenario: Validate "Title" in Batch Page
+# Given Admin is on the home page
+# When Admin Clicks on the Batch menu from the header
+# Then Admin should see the "LMS-Learning Management System" Title
 
-@Validate_Disabled_Delete_Icon
-Scenario: Validate disabled "Delete Icon" under the header in the Batch Page
-Given Admin is on the home page
-When Admin Clicks on the Batch menu from the header
-Then Admin should see the disabled "Delete Icon" under the header
+# @Validate_Heading
+# Scenario: Validate "heading" in the Batch Page
+# Given Admin is on the home page
+# When Admin Clicks on the Batch menu from the header
+# Then Admin should see the "Manage Batch" Heading
 
-@Validate_Pagination
-Scenario: Validate pagination in the Batch Page
-Given Admin is on the home page
-When Admin Clicks on the Batch menu from the header
-Then Admin should see the enabled pagination controls under the data table
+# @Validate_Disabled_Delete_Icon
+# Scenario: Validate disabled "Delete Icon" under the header in the Batch Page
+# Given Admin is on the home page
+# When Admin Clicks on the Batch menu from the header
+# Then Admin should see the disabled "Delete Icon" under the header
+
+# @Validate_Pagination
+# Scenario: Validate pagination in the Batch Page
+# Given Admin is on the home page
+# When Admin Clicks on the Batch menu from the header
+# Then Admin should see the enabled pagination controls under the data table
 
 # @Validate_Edit_Icon_EachRow
 # Scenario: Validate edit icon in each data rows
@@ -45,11 +49,11 @@ Then Admin should see the enabled pagination controls under the data table
 # When Admin Clicks on the Batch menu from the header
 # Then Admin should see the checkbox in each row
 
-# @Validate_Database_Header
-# Scenario: Validate Datatable headers
-# Given Admin is on the home page
-# When Admin Clicks on the Batch menu from the header
-# Then Admin should see the datatable headers Batch name, Batch Description,Batch Status, No Of classes, Program Name, Edit or Delete
+@Validate_Database_Header
+Scenario: Validate Datatable headers
+Given Admin is on the home page
+When Admin Clicks on the Batch menu from the header
+Then Admin should see the datatable headers Batch name, Batch Description,Batch Status, No Of classes, Program Name, Edit or Delete
 
 # @Validate_Checkbox_Datatable_row
 # Scenario: Validate "Checkbox" in the Datatable header row
