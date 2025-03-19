@@ -22,7 +22,7 @@ When('Admin enter valid data in all field and clicks login button', async functi
 
 
 Given('Admin is on the home Page', async function () {
-   this.batchPageObj = new BatchPage(this.page);
+   // this.batchPageObj = new BatchPage(this.page);
    // await this.batchPageObj.gotoLoginUrl();
    // this.batchPageObj.login();
    await this.batchPageObj.gotoHomeUrl();
