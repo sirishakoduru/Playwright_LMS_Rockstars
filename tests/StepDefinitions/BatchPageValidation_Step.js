@@ -5,56 +5,69 @@ const { Given, When, Then ,test} = createBdd();
 require('dotenv').config();
 // this.batchPage = new BatchPage(this.page);
 
-Given('Admin is on the home page after login', async function() {
-    this.batchPageobj = new BatchPage(this.page);
-    await this.batchPageobj.gotoLoginUrl();
-    await this.batchPageobj.login();
-});
+// Given('Admin is on the home page after login', async function() {
+//     this.batchPageobj = new BatchPage(this.page);
+//     await this.batchPageobj.gotoLoginUrl();
+//     await this.batchPageobj.login();
+// });
 
 Given('Admin is on the home page', async function() {
-    this.batchPageObj = new BatchPage(this.page);
-   await this.batchPageObj.gotoLoginUrl();
-   this.batchPageObj.login();
-   await this.batchPageobj.gotoHomeUrl();
+    this.batchPageobj = new BatchPage(this.page);
+  //  await this.batchPageobj.gotoLoginUrl();
+  //  this.batchPageobj.login();
+  //  await this.batchPageobj.gotoHomeUrl();
+  //  await this.batchPageobj.clickBatch();
 });
 
 Then('Admin should see the {string} Title', async function() {
-   await this.batchPageobj.verifyLMSTitle()
+   const title = await this.batchPageobj.verifyLMSTitle()
+   console.log("Actual Title:", title);
+   expect(await title).toBe(" LMS - Learning Management System ")
 });
 
 Then('Admin should see the {string} Heading', async function() {
-  await this.batchPageObj.verifyHeading()
+  const heading = await this.batchPageobj.verifyHeading()
+  console.log("heading :", heading)
+  expect(await heading).toBe(" Manage Batch")
 });
 
 Then('Admin should see the disabled {string} under the header', async function() {
-  await this.batchPageObj.veriftDeleteButton()
+  const deletebutton = await this.batchPageobj.veriftDeleteButton()
+  await expect (deletebutton).toBeDisabled()
 });
 
 Then('Admin should see the enabled pagination controls under the data table', async function() {
-  await this.batchPageObj.verifyPagenaginationIsEnabled()
+  const pagination = await this.batchPageobj.verifyPagenaginationIsEnabled();
+  await expect (pagination).toBeEnabled();
 });
 
 Then('Admin should see the edit icon in each row', async function() {
+  expect(this.batchPageobj.VerifyeditIconInEachRow()).toBeTruthy();
  
 });
 
 Then('Admin should see the delete icon in each row', async function() {
-  
+  expect (this.batchPageobj.VerifyDeleteIconInEachRow()).toBeTruthy();
 });
 
 Then('Admin should see the checkbox in each row', async function() {
-  
+  expect (this.batchPageobj.VerifyCheckBoxesInEachRow()).toBeTruthy();
 });
 
 
 Then('Admin should see the datatable headers Batch name, Batch Description,Batch Status, No Of classes, Program Name, Edit or Delete', async function() {
-  
+  const actualHeaderNames = await this.batchPageobj.verifyHeaderNames();
+  const expectedHeaders = ['Batch Name',
+    'Batch Description',
+    'Batch Status',
+    'No Of Classes','Program Name','Edit / Delete']
+    expect(actualHeaderNames).toEqual(expectedHeaders);
   });
 
 Then('Admin should see the checkbox  in the datatable header row', async function() {
-  
+  expect (this.batchPageobj.verifyHeaderCheckbox()).toBeVisible;
 });
 
 Then('Admin should see the sort icon next to all Datatable headers', async function() {
- 
+  expect (this.batchPageobj.verifyHeaderSortIcon()).toBeTruthy();
 });
