@@ -15,7 +15,7 @@ Given('Admin gives the correct LMS portal URL', async function() {
 });
 
 Given('Admin is on login Page in LMS', async function() {
-  const commonPage = this.poManager.getCommonPage()
+    const commonPage = this.poManager.getCommonPage()
     await commonPage.navigateToLoginPage()
       
   });
