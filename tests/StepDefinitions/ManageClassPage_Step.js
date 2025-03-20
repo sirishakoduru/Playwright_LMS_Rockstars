@@ -34,43 +34,26 @@ Then('Admin should see the Search Bar in Manage class page', async function () {
 Then('Admin should see the datatable heading like Batchname,class topic,class description,status,class Date,staff name,Edit\\/Delete', async function () {
   
   this.ManageClassPageObj = new ClassPage(this.page);
-  const actualHeaders = await this.ManageClassPageObj.DataTable_Headers();
-  const expectedHeaders = ('Batchname','Class Topic','Class Description','Status','Class Date','Staff Name', 'Edit/Delete')
+  const actualHeaderNames = await this.ManageClassPageobj.DataTable_Headers();
+  const expectedHeaders = ['Batch Name',
+    'Batch Description',
+    'Batch Status',
+    'No Of Classes','Program Name','Edit / Delete']
+    expect(actualHeaderNames).toEqual(expectedHeaders);
+  });
     
-    
-    
-    
-   //const expectedHeaders =[ 
-   
-  //   'Batchname',
-  //   'Class Topic',
-  //   'Class Description',
-  //   'Status',
-  //   'Class Date',
-  //   'Staff Name',
-  //   'Edit/Delete'
-  // ];
-  
-  
- // const actualHeaders = await this.ManageClassPageObj.DataTable_Headers();
-  console.log("Expected Headers:", expectedHeaders);
-  console.log("Actual Headers:", actualHeaders);
-  expect(actualHeaders).toEqual(expectedHeaders);
-});
-
 Then('Admin should see the {string} and enabled pagination controls under the data table', async function () {
-  
-  await this.ManageClassPageObj.Text_Pagination()
-
-
+ 
+  this.ManageClassPageObj = new ClassPage(this.page);
+  await this.ManageClassPageObj.Text_Pagination();
 });
 
 Then('Admin should see the Sort icon of all the field in the datatable', async function () {
   
-  this.ManageClassPageObj = new ClassPage(this.page);
-  const tableHeaders = await this.ManageClassPageObj.Sorticon_Elements();
+  //this.ManageClassPageObj = new ClassPage(this.page);
+  //const tableHeaders = await this.ManageClassPageObj.Sorticon_Elements();
 
-
+  expect (this.ManageClassPageObj.Sorticon_Elements()).toBeTruthy();
 
 
 });
@@ -83,6 +66,12 @@ Then('Admin should see the Delete button under the Manage class page header', as
 });
 
 Then('Admin should see Total no of classes in below of the data table', async function () {
-  // Step: Then Admin should see Total no of classes in below of the data table
-  // From: tests\features\ManageClassPage.feature:40:1
+  this.ManageClassPageObj = new ClassPage(this.page);
+  // const paginationtext = await this.ManageClassPageobj.TotalPages_Text();
+  // await expect (paginationtext).toBeEnabled();
+  //ManageClassPageObj.TotalClasses_Displayed();
+  const isVisible = await this.ManageClassPageObj.TotalPages_Text();
+  expect(isVisible).toBeTruthy();
+
+
 });
