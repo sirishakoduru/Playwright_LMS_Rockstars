@@ -2,6 +2,7 @@
 const { ProgramPage } = require("./ProgramPage");
 const { CommonPage } = require("./CommonPage");
 const {LoginPage} = require ("./LoginPage")
+const {LogOutPage} = require("./LogOutPage");
 //exports.PageObjectManager=
 
 
@@ -42,6 +43,13 @@ export class PageObjectManager{
             this.LoginPage=new LoginPage(this.page)
         }
         return this.LoginPage
+    }
+
+    getLogOutPage(){
+        if(!this.LogOutPage){
+            this.LogOutPage=new LogOutPage(this.page)
+        }
+        return this.LogOutPage
     }
 
 }
