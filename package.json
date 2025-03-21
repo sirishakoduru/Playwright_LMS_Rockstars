@@ -25,6 +25,8 @@
     "playwright-bdd": "^8.2.1"
   },
   "dependencies": {
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "tesseract.js": "^6.0.0",
+    "xlsx": "^0.18.5"
   }
 }
