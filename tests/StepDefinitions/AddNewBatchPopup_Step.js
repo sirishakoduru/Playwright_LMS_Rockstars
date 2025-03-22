@@ -8,7 +8,6 @@ Given('Admin is on the Add new batch pop up', async function() {
     this.batchPageObj = new BatchPage(this.page);
     await this.batchPageObj.gotoLoginUrl();
     this.batchPageObj.login();
-    await this.batchPageObj.clickBatch
     this.addNewPage = new addNewBatchPage(this.page)
     await this.addNewPage.ClickBatchButton();
     await this.addNewPage.clickAddNewBatch();
@@ -61,7 +60,7 @@ Given('Admin is on the Add new batch pop up', async function() {
   When('Admin enters the data only to the mandatory fields and clicks save button', async function() {
     await this.addNewPage.clickProgramNameDropdown();
     await this.addNewPage.selectProgramNameFromDropdown();
-    await this.addNewPage.EnterMandatoryFeilds();
+    await this.addNewPage.EnterMandatoryFields('EnterMandatoryFeilds');
   });
   
   Then('Admin should get a successful message', async function() {
@@ -71,7 +70,7 @@ Given('Admin is on the Add new batch pop up', async function() {
   When('Admin leaves blank one of the mandatory fields', async function() {
     await this.addNewPage.clickProgramNameDropdown();
     await this.addNewPage.selectProgramNameFromDropdown();
-    await this.addNewPage.verifyWithEmptyMandatoryFeild();
+    await this.addNewPage.verifyWithEmptyMandatoryFeild('verifyWithEmptyMandatoryFeild');
   });
   
   Then('Admin should get a error message on the respective mandatory field', async function() {
@@ -81,7 +80,7 @@ Given('Admin is on the Add new batch pop up', async function() {
   When('Admin enters the valid data to all the mandatory fields and click cancel button', async function() {
     await this.addNewPage.clickProgramNameDropdown();
     await this.addNewPage.selectProgramNameFromDropdown();
-    await this.addNewPage.clickCancelButton();
+    await this.addNewPage.clickCancelButton('clickCancelButton');
   });
   
   Then('Admin can see the batch details popup closes without creating any batch', async function() {
@@ -143,7 +142,7 @@ Given('Admin is on the Add new batch pop up', async function() {
   });
   
   When('Admin enters the valid data to all the mandatory fields and click save button', async function() {
-   await this.addNewPage.EnterMandatoryFeildsforEdit();
+   await this.addNewPage.EnterMandatoryFeildsforEdit('EnterMandatoryFeildsforEdit');
   });
 
   Then('Admin should get a successful message for editing the batch', async function() {
@@ -151,7 +150,7 @@ Given('Admin is on the Add new batch pop up', async function() {
   });
 
   When('Admin enters the valid data to all the mandatory fields for edit and click cancel button', async function() {
-    await this.addNewPage.clickCancelButtonForEdit();
+    await this.addNewPage.clickCancelButtonForEdit('clickCancelButtonForEdit');
   });
   
   Then('Admin can see the batch details popup closes without editing the batch', async function() {
