@@ -1,9 +1,10 @@
-//const { LoginPage } = require("./LoginPage");
+
 const { ProgramPage } = require("./ProgramPage");
 const { CommonPage } = require("./CommonPage");
 const {LoginPage} = require ("./LoginPage")
 const {LogOutPage} = require("./LogOutPage");
-//exports.PageObjectManager=
+const {SortClassPage} = require("./SortClassPage");
+
 
 
 export class PageObjectManager{
@@ -11,18 +12,15 @@ export class PageObjectManager{
     constructor(page)
     {
         this.page=page
-        //this.loginPage=null
+        this.SortClass =null
         this.programPage=null
         this.commonPage=null
+        this.LoginPage=null
+        this.LogOutPage=null
 
     }
 
-    // getLoginPage(){
-    //     if(!this.loginPage){
-    //         this.loginPage=new LoginPage(this.page)
-    //     }
-    //     return this.loginPage
-    // }
+
 
     getProgramPage(){
         if(!this.programPage){
@@ -51,7 +49,13 @@ export class PageObjectManager{
         }
         return this.LogOutPage
     }
+    getSortClassPage(){
+        if(!this.SortClassPage){
+            this.SortClassPage=new SortClassPage(this.page)
+        }
+        return this.SortClassPage
+    }
+
 
 }
 
-//module.exports={PageObjectManager}
