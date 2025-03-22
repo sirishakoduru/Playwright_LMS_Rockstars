@@ -1,4 +1,6 @@
 import { expect } from "@playwright/test";
+const filepath = 'tests/TestData/LMS_Data.xlsx';
+const { getDataByDataInput } = require('../Utilities/ExcelReader.js');
 export class addNewBatchPage{
     page
     constructor(page){
@@ -12,7 +14,7 @@ export class addNewBatchPage{
         this.statusActive = page.locator("//*[text()=' ACTIVE ']");
         this.statusInactive = page.getByText(' INACTIVE ');
         this.NumberOfClasses = page.locator('#batchNoOfClasses');
-        this.selectProgramName = page.locator("//li[@aria-label='createdatalist']");
+        this.selectProgramName = page.locator("//ul[@role='listbox']//li[@role='option']");
         this.batchNameSuffix = page.locator("//input[@id='batchName' and (not(@hidden) or @hidden='false')]");
         this.BatchSuffixerrorMessage = page.locator("//small[@id='text-danger']");
         this.saveButton = page.locator("//button[@class='p-button-rounded p-button-success p-button p-component ng-star-inserted']");
@@ -25,6 +27,22 @@ export class addNewBatchPage{
         this.programName = page.locator("//input[@class='p-dropdown-label p-inputtext ng-tns-c171-9 ng-star-inserted']")
         this.editDescription = page.locator("//input[@id='batchDescription']")
         this.editSucessMsg = page.getByText("batch Updated")
+        this.deleteButton = page.locator("//tbody/tr[2]/td[7]/div/span[2]/button");
+        this.deletePopup = page.locator("//div[@class='ng-trigger ng-trigger-animation ng-tns-c204-8 p-dialog p-confirm-dialog p-component ng-star-inserted']")
+        this.confirmYesButton = page.locator("//button[@class='ng-tns-c204-8 p-confirm-dialog-accept p-ripple p-button p-component ng-star-inserted']")
+        this.confirmNoButton = page.locator("//button[@class='ng-tns-c204-8 p-confirm-dialog-reject p-ripple p-button p-component ng-star-inserted']")
+        this.deleteSuccessMsg = page.getByText("batch Deleted")
+        this.deletePopupCloseButton = page.locator("//button[@class='ng-tns-c204-8 p-dialog-header-icon p-dialog-header-close p-link ng-star-inserted']")
+        this.deleteIcon = page.locator("//button[@class='p-button-danger p-button p-component p-button-icon-only']");
+        this.selectCheckBox = page.locator("//tr[1]/td[1]");
+        this.nextPage = page.locator("//button//span[@class='p-paginator-icon pi pi-angle-right']")
+        this.lastPage = page.locator("//button[@class='p-paginator-last p-paginator-element p-link p-ripple ng-star-inserted']")
+        this.previousPage = page.locator("//button//span[@class='p-paginator-icon pi pi-angle-left']")
+        this.FristPage = page.locator("//button[@class='p-paginator-page p-paginator-element p-link p-highlight p-ripple ng-star-inserted' and contains(text(), '1')]")
+        this.disabledNextPage = page.locator("//button//span[@class='p-paginator-icon pi pi-angle-right']");
+        this.search = page.locator('#filterGlobal');
+        this.FilteredBatch = page.locator("//tbody[@class='p-datatable-tbody']")
+        this.logout = page.locator('#logout');
 
     }
     async verifyaddNewPageBtn(){
@@ -77,7 +95,7 @@ export class addNewBatchPage{
         await this.programDropdown.click();
     }
     async selectProgramNameFromDropdown(){
-        await this.selectProgramName.click();   
+        await this.selectProgramName.nth(1).click();   
     }
     async verifySelectedProgramNameInBatchPrefix(){
         const batchPrefix = await this.batchName.inputValue();
@@ -105,35 +123,67 @@ export class addNewBatchPage{
     async verifyEmptyBatchPrefix(){
         return await this.batchName.inputValue();
     }
-    async EnterMandatoryFeilds(){
-        await this.batchNameSuffix.fill("2024");
-        await this.batchDescription.fill("The Batch list is created")
+    async EnterMandatoryFields(DataInput){
+        // await this.batchNameSuffix.fill("2024");
+        // await this.batchDescription.fill("The Batch list is created")
+        // await this.statusActive.click();
+        // await this.NumberOfClasses.fill("2");
+        // await this.saveButton.click();
+        const filepath = 'tests/TestData/LMS_Data.xlsx';
+        const sheetName = 'Batch';   
+        const testData = getDataByDataInput(filepath,sheetName,DataInput);
+        const batchNameSuffix = testData['batchNameSuffix'].toString();
+        const batchDescription = testData['batchDescription'];
+        const NoOfClasses = testData.NumberOfClasses.toString();
+        await this.batchNameSuffix.fill(batchNameSuffix);
+        await this.batchDescription.fill(batchDescription);
         await this.statusActive.click();
-        await this.NumberOfClasses.fill("2");
+        await this.NumberOfClasses.fill(NoOfClasses);
         await this.saveButton.click();
     }
     async getSuccessmessage(){
-        const successMsg1 = await this.successMsg
-        const successMsg2 = await this.createdMsg
-        let sucessMsgCreation = successMsg1 + " " + successMsg2
-        console.log("success message is",sucessMsgCreation )
+        const successMsg1 = await this.successMsg;
+        const successMsg2 = await this.createdMsg;
+        let sucessMsgCreation = successMsg1 + " " + successMsg2;
         return sucessMsgCreation;
     }
-    async verifyWithEmptyMandatoryFeild(){
-        await this.batchNameSuffix.fill("2008");
-        await this.batchDescription.fill(" ")
+    async verifyWithEmptyMandatoryFeild(DataInput){
+        // await this.batchNameSuffix.fill("2008");
+        // await this.batchDescription.fill(" ");
+        // await this.statusActive.click();
+        // await this.NumberOfClasses.fill("2");
+        // await this.saveButton.click();
+        const filepath = 'tests/TestData/LMS_Data.xlsx';
+        const sheetName = 'Batch';   
+        const testData = getDataByDataInput(filepath,sheetName,DataInput);
+        const batchNameSuffix = testData['batchNameSuffix'].toString();
+        const batchDescription = testData['batchDescription'];
+        const NoOfClasses = testData.NumberOfClasses.toString();
+        await this.batchNameSuffix.fill(batchNameSuffix);
+        await this.batchDescription.fill(batchDescription);
         await this.statusActive.click();
-        await this.NumberOfClasses.fill("2");
+        await this.NumberOfClasses.fill(NoOfClasses);
         await this.saveButton.click();
     }
     async verifyErrorMsgWithEmptyMandatoryFeild(){
         return await this.emptyBacthDescription;
     }
-    async clickCancelButton(){
-        await this.batchNameSuffix.fill("2024");
-        await this.batchDescription.fill("The Batch list is created")
+    async clickCancelButton(DataInput){
+        // await this.batchNameSuffix.fill("2024");
+        // await this.batchDescription.fill("The Batch list is created")
+        // await this.statusActive.click();
+        // await this.NumberOfClasses.fill("2");
+        // await this.cancelButton.click();
+        const filepath = 'tests/TestData/LMS_Data.xlsx';
+        const sheetName = 'Batch';   
+        const testData = getDataByDataInput(filepath,sheetName,DataInput);
+        const batchNameSuffix = testData['batchNameSuffix'].toString();
+        const batchDescription = testData['batchDescription'];
+        const NoOfClasses = testData.NumberOfClasses.toString();
+        await this.batchNameSuffix.fill(batchNameSuffix);
+        await this.batchDescription.fill(batchDescription);
         await this.statusActive.click();
-        await this.NumberOfClasses.fill("2");
+        await this.NumberOfClasses.fill(NoOfClasses);
         await this.cancelButton.click();
     }
     async IsBatchPopupClosed(){
@@ -170,10 +220,19 @@ export class addNewBatchPage{
         await this.editDescription.fill("34");
         await this.saveButton.click();
     }
-    async EnterMandatoryFeildsforEdit(){
-        await this.batchDescription.fill("The Batch is created for testing")
+    async EnterMandatoryFeildsforEdit(DataInput){
+        // await this.batchDescription.fill("The Batch is created for testing")
+        // await this.statusActive.click();
+        // await this.NumberOfClasses.fill("4");
+        // await this.saveButton.click();
+        const filepath = 'tests/TestData/LMS_Data.xlsx';
+        const sheetName = 'Batch';   
+        const testData = getDataByDataInput(filepath,sheetName,DataInput);
+        const batchDescription = testData['batchDescription'];
+        const NoOfClasses = testData.NumberOfClasses.toString();
+        await this.batchDescription.fill(batchDescription);
         await this.statusActive.click();
-        await this.NumberOfClasses.fill("4");
+        await this.NumberOfClasses.fill(NoOfClasses);
         await this.saveButton.click();
     }
     async getEditSuccessmessage(){
@@ -183,13 +242,109 @@ export class addNewBatchPage{
         console.log("success message is",sucessMsgCreation )
         return sucessMsgCreation;
     }
-    async clickCancelButtonForEdit(){
-        await this.batchDescription.fill("The Batch list is created")
+    async clickCancelButtonForEdit(DataInput){
+        // await this.batchDescription.fill("The Batch list is created")
+        // await this.statusActive.click();
+        // await this.NumberOfClasses.fill("2");
+        // await this.cancelButton.click();
+        const filepath = 'tests/TestData/LMS_Data.xlsx';
+        const sheetName = 'Batch';   
+        const testData = getDataByDataInput(filepath,sheetName,DataInput);
+        const batchDescription = testData['batchDescription'];
+        const NoOfClasses = testData.NumberOfClasses.toString();
+        await this.batchDescription.fill(batchDescription);
         await this.statusActive.click();
-        await this.NumberOfClasses.fill("2");
+        await this.NumberOfClasses.fill(NoOfClasses);
         await this.cancelButton.click();
     }
-    
-    
+    async clickDeleteButton(){
+        await this.deleteButton.click();
+    }
+    async isDeletePopupwithYesNoAppear(){
+        await this.deletePopup;
+        await this.confirmYesButton;
+        await this.confirmNoButton;
+    }
+    async OnBatchDeletePopup (){
+        return await this.deletePopup
+    }
+    async clickYesOnDeletePopup(){
+        await this.confirmYesButton.click();
+    }
+    async getDeleteSuccessMesaage(){
+        const successMsg1 = await this.successMsg
+        const successMsg2 = await this.deleteSuccessMsg
+        let deleteMsgCreation = successMsg1 + " " + successMsg2
+        console.log("success message is",deleteMsgCreation )
+        return deleteMsgCreation;
+    }
+    async clickNoOnDeletePopup(){
+        await this.confirmNoButton.click();
+    }
+    async isDeletePopupClosed(){
+        const isDeletePopupClosed = this.confirmNoButton
+        if(!isDeletePopupClosed) {
+            console.log("Delete popup closed successfully")
+        }else {
+            console.log("Delete popup is still open")
+        }
+    }
+    async clickDeletePopupCloseButton(){
+    await this.deletePopupCloseButton.click();
+    }
+    async isDeletrPopupCLosed(){
+        const isDeletePopupClosed = this.deletePopupCloseButton
+        if(!isDeletePopupClosed) {
+            console.log("Delete popup closed successfully")
+        }else {
+            console.log("Delete popup is still open")
+        } 
+    }
+    async clickDeleteIconInManageBatch(){
+        await this.deleteIcon.click();
+    }
+    async clickCheckBox(){
+        await this.selectCheckBox.click();
+    }
+    async clickNextPage(){
+        await this.nextPage.click();
+    }
+    async isNextPageEnabled(){
+        return this.nextPage.isEnabled();
+    }
+    async verifyNextPageDisabled(){
+        return this.disabledNextPage;
+    }
+    async clickLastPage(){
+        await this.lastPage.click();
+    }
+    async clickPreviousPage(){
+        await this.nextPage.click();
+        await this.previousPage.click();
+    }
+    async isPreviousPageDisplayed(){
+        await this.previousPage.isVisible();
+    }
+    async clickFirstPage(){
+        await this.FristPage.click();
+    }
+    async isFirstPageDisplayed(){
+        await this.FristPage.isVisible();
+    }
+    async EnterBatchNameInSearch(){
+        await this.search.click();
+        await this.search.fill("createdata1145");
+    }
+    async isFileteredBatchDisplayed(){
+        await this.FilteredBatch.isVisible();
+    }
+    async clickLogout(){
+        await this.logout.click();
+    }
+    async isLoginPageDisplayed(){
+        return this.page.url();
+        
+    }
+
 
 }
