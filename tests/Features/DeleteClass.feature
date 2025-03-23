@@ -2,7 +2,7 @@ Feature: Delete Class
 
 Background: Admin is on the Manage Class page after login
 
- Given Admin is on the Manage class page
+Given Admin is on the Manage class page
        
 Scenario: Validate row level delete icon
 Given Admin is on Manage Class Page
