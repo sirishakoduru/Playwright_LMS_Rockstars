@@ -4,8 +4,8 @@ import {defineBddConfig} from 'playwright-bdd'
 import dotenv from 'dotenv';
 
 const testDir = defineBddConfig ({
-  features: ['tests/features/BatchPageNavigation.feature', 'tests/features/BatchPageValidation.feature'],
-  steps: ['tests/StepDefinitions/BatchPageNavigation_Step.js', 'tests/StepDefinitions/BatchPageValidation_Step.js','tests/Hooks/Hooks.js']
+  features: ['tests/Features/AddNewClassPopUp.feature'],
+  steps: ['tests/StepDefinitions/AddNewClassPopUp_Steps.js','tests/Hooks/Hooks.js']
 });
 
 dotenv.config({
