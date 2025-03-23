@@ -32,7 +32,8 @@ export class SortClassPage {
        this.Dialouge = page.locator("xpath=//div/div/div[2]/span");
 	   this.ClassTopicDelete =page.locator("xpath=//div/div[1]/table/tbody/tr[1]/td[3]")
        this.SearchBar =page.locator('#filterGlobal')	
-       this.ManageClass = page.getByText(' Manage Class');					
+       this.ManageClass = page.getByText(' Manage Class');		
+           
     }
 
     async BatchNamesort (){
@@ -114,6 +115,8 @@ export class SortClassPage {
             }
         }
     }
+// Delete Class------------------------------------------------
+
     async DeleteIconClick(){
         await this.AddClass.click();
         await this.CancelAddclass.click();
@@ -177,6 +180,29 @@ export class SortClassPage {
             await expect(this.ClassTopicDelete).not.toBeVisible();
         }
     }
+
+//Search Class -----------------------------------
+
+async BtachNameSearch(){
+    await this.SearchBar.fill("Python101")
+}
+async BtachNameInTable(){
+    await expect(this.batchnameList).toHaveText("Python101")
+    console.log("The Searched Class (Python101) sucessfully Displayed in Table")
+}
+async ClassTopicSearch(){
+    await this.SearchBar.fill("JavaTestPlaywright01")
+}
+async ClassTopicInTable(){
+    await expect(this.classTopicList).toHaveText("JavaTestPlaywright01")
+    console.log("The Searched Class (JavaTestPlaywright01) sucessfully Displayed in Table")
+}
+async StaffNameSearch(){
+    await this.SearchBar.fill("Getha Takur")
+}
+async StaffNameInTable(){
+    await expect(this.staffList).toHaveText("Getha Takur")
+    console.log("The Searched Class (Getha Takur) sucessfully Displayed in Table")
+}
    
-    
 }
