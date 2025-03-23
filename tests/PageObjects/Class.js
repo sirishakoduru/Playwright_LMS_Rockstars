@@ -27,12 +27,13 @@ export class ClassPage{
         this.ClassTopic = page.locator("/html/body/app-root/app-session/p-dialog/div/div/div[2]/div[2]/label")
         //this.batchNameInput = page.locator('#batchName');
        
-         this.batchNameInput = page.getByRole('textbox', { name: 'Select a Batch Name' })
+        //  this.batchNameInput = page.getByRole('textbox', { name: 'Select a Batch Name' })
         // this.batchNameInput = 
         // this.batchNameField = page.locator('input[placeholder="Select a Batch Name"]');
          this.batchDropDown = page.locator('#batchName').getByRole('button', { name: '' })
-        // this.dropdownPanel = this.batchDropdown.locator('.p-dropdown-panel');
-         this.dropdownList = page.getByText('SMPO10');
+         this.batchNameInput = page.locator("//li[@role='option']")
+    
+        //  this.dropdownList = page.getByText('SMPO10');
 
        //this.classTopicInput = page.locator('input[name="classTopic"]');
        this.classTopicInput = page.locator('#classTopic');
@@ -40,20 +41,25 @@ export class ClassPage{
       // this.selectClassDatesInput = page.locator('#icon')
       // this.Datesicon = page.locator('p-calendar').getByRole('button')
       //this.selectClassDatesInput = page.locator("xpath=//span[@class='ng-tns-c178-31 p-ripple ng-star-inserted'][normalize-space()='24']");
-      this.datePicker = page.locator("//input[@id='icon']");
+      this.datePicker = page.locator("//p-calendar//input");
       // this.noOfClassesInput = page.locator('#classNo');
        //this.noOfClassesInput = page.getByText('No of Classes')
        this.noOfClasses = page.locator("xpath=//html/body/app-root/app-session/p-dialog/div/div/div[2]/div[5]/input");
-       this.staffNameSelect = page.locator('#staffId').getByRole('button', { name: '' });
-       this.staffname =   page.getByRole('option', { name: 'Getha Takur' });
-       this.statusSelect = page.getByText('Status');
-       this.radioButtonStatus = page.locator('.p-radiobutton-box');
+       this.staffnameDropdown = page.locator("//p-dropdown[@id='staffId']//div[contains(@class,'p-dropdown-trigger')]")
+       this.staffNameOption = page.locator("//ul[@role='listbox']//li[@role='option']");
+      //  this.staffNameSelect = page.locator('#staffId').getByRole('button', { name: '' });
+      //  this.staffname =   page.getByRole('option', { name: 'Getha Takur' });
+      //  this.statusSelect = page.getByText('Status');
+      //  this.radioButtonStatus = page.locator('.p-radiobutton-box');
+      this.statusActive = page.locator("//div[contains(text(),'Active')]//div[2]");
        this.notesTextarea = page.locator('#classNotes');
        this.recordingCheckbox = page.locator('#classRecordingPath');
-       this.successMessage = page.locator('text=Class added Successfully');
+      //  this.successMessage = page.locator('text=Class added Successfully');
        // Define locator for error messages
        this.errorMessages = page.locator('.error-message');
-
+       this.successMsg = page.getByText("Successful");
+        this.createdMsg = page.getByText("Class Created");
+       
     }
 
     async gotoLoginUrl(){
@@ -192,9 +198,9 @@ async addNew_ClassButton(){
     }
 
 }
-async enterBatchName(batchName) {
+async enterBatchName() {
   await this.batchDropDown.click();
-  await this.batchNameInput.fill(batchName).click;
+  await this.batchNameInput.nth(1).click();
  // await this.dropdownList.click();
  // await this.dropdownList.locator(`text=${batchName}`).click(); 
 }
@@ -210,52 +216,92 @@ async enterBatchName(batchName) {
  }
 
 
- async selectClassDates() {
-  //await this.selectClassDatesInput.click();
+//  async selectClassDates() {
+//   //await this.selectClassDatesInput.click();
   
 
-  await this.datePicker.click();
+//   await this.datePicker.click();
   
+//   const year = "2025";
+//   const month = "March";
+//   const date = "26";
+  
+//   while(true){
+
+//  const currentYear = await this.page.locator("//div//span[@class='p-datepicker-year ng-tns-c178-13 ng-star-inserted']").textContent()
+//  const currentMonth = await this.page.locator("//div//span[@class='p-datepicker-month ng-tns-c178-13 ng-star-inserted']").textContent()
+
+//  if (currentYear == year && currentMonth == month){
+    
+//      break;
+
+
+//  }
+
+//  const dates = this.page.$$("//td//span[@class='ng-tns-c178-13 p-ripple ng-star-inserted']")
+
+//  for(const dt of dates){
+
+// if (await dt.textContent == date){
+
+// await dt.click()
+// break;
+
+// }
+
+//  }
+ 
+
+
+
+//  await this.page.WaitForTimeout(5000);
+
+//   }
+
+//   }
+async closeOverlay() {
+  await this.page.mouse.click(0, 0); // Clicks at the top-left corner to dismiss the overlay
+}
+// async clickDatePicker(){
+//   await this.datePicker.click();
+// }
+async selectClassDates() {
+  await this.datePicker.click();
+
   const year = "2025";
   const month = "March";
   const date = "26";
+
+  while (true) {
+      const currentYear = await this.page.locator("//div//span[contains(@class, 'p-datepicker-year')]").textContent();
+      const currentMonth = await this.page.locator("//div//span[contains(@class, 'p-datepicker-month')]").textContent();
+
+      if (currentYear.trim() === year && currentMonth.trim() === month) {
+          break;
+      }
+
+      await this.page.locator("//button[contains(@class, 'p-datepicker-next')]").click();
+      await this.page.waitForTimeout(500);
+  }
+
+  const dateLocator = `//td[not(contains(@class, 'p-datepicker-other-month'))]//span[contains(@class, 'p-ripple') and normalize-space(text())='${date}']`;
+
+ // Wait for element to be attached and visible before clicking
+ await this.page.waitForSelector(dateLocator, { state: 'attached', timeout: 5000 });
+ await this.page.waitForSelector(dateLocator, { state: 'visible', timeout: 5000 });
   
-  while(true){
+  // Ensure the element exists before clicking
+  const dateElement = this.page.locator(dateLocator);
+  if (!(await dateElement.count())) {
+      throw new Error(`Date ${date} not found in the date picker`);
+  }
 
- const currentYear = await this.page.locator("//span[@class='p-datepicker-year ng-tns-c178-10 ng-star-inserted']").textContent()
- const currentMonth = await this.page.locator("//span[@class='p-datepicker-month ng-tns-c178-10 ng-star-inserted']").textContent()
-
- if (currentYear == year && currentMonth == month){
-    
-     break;
-
-
- }
-
- const dates = this.page.$$("//span[@class='ng-tns-c178-10 p-ripple ng-star-inserted']")
-
- for(const dt of dates){
-
-if (await dt.textContent == date){
-
-await dt.click()
-break;
-
+  await dateElement.click();
 }
-
- }
-
-
-
- await this.page.WaitForTimeout(5000);
-
-  }
-
-  }
 
 //  async enterNumberOfClasses(numberOfClasses) {
 //   await this.numberOfClassesInput.click();
-//   await this.numberOfClassesInput.fill(numberOfClasses);
+//   await this.numberOfClassesInput.fill("2");
 //  //await this.noOfClassesInput.fill(numberOfClasses.toString());
 //  return await this.numberOfClassesInput.inputValue();
 //  }
@@ -266,41 +312,53 @@ break;
 //  await this.staffNameSelect.fill(staffName).click();
 //  }
 
-//  async selectStatus(status) {
-//   await this.statusSelect.selectOption({ label: status });
-//   await this.radioButtonStatus.first().click();
-//  }
+async clickStaffNameDropdown(){
+  await this.staffnameDropdown.click();
+}
+async selectStaffName(){
+  await this.staffNameOption.nth(2).click();
+}
+ async selectStatus() {
+  await this.statusActive.click();
+  // await this.radioButtonStatus.first().click();
+ }
+ async getSuccessmessage(){
+  const successMsg1 = await this.successMsg;
+  const successMsg2 = await this.createdMsg;
+  let sucessMsgCreation = successMsg1 + " " + successMsg2;
+  return sucessMsgCreation;
+}
 
-//  async enterNotes(notes) {
-//   await this.notesTextarea.click();
-//  await this.notesTextarea.fill(notes);
+ async enterNotes(notes) {
+  await this.notesTextarea.click();
+ await this.notesTextarea.fill(notes);
 
-//  }
+ }
 
-// async toggleRecording(enable) {
-//  const isChecked = await this.recordingCheckbox.isChecked();
-//  if (isChecked !== enable) {
-// await this.recordingCheckbox.click();
-//   }
-//  }
+async toggleRecording(enable) {
+ const isChecked = await this.recordingCheckbox.isChecked();
+ if (isChecked !== enable) {
+await this.recordingCheckbox.click();
+  }
+ }
 
-// async clickSaveButton() {
-//  await this.saveButton.click();
-//  }
+async clickSaveButton() {
+ await this.saveButton.click();
+ }
 
-//  async clickCancelButton() {
-//  await this.cancelButton.click();
-//   }
+ async clickCancelButton() {
+ await this.cancelButton.click();
+  }
 
-// async clickCloseIcon() {
-//  await this.closeIcon.click();
-//  }
+async clickCloseIcon() {
+ await this.closeIcon.click();
+ }
 
-// async getSuccessMessage() {
-// return this.successMessage.textContent();
-// }
+async getSuccessMessage() {
+return this.successMessage.textContent();
+}
 
-// async getErrorMessages() {
-//  return this.errorMessages.allTextContents();
-//  }
+async getErrorMessages() {
+ return this.errorMessages.allTextContents();
+ }
 }
