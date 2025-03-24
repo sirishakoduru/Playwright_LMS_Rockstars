@@ -6,6 +6,7 @@ export class SortClassPage {
     constructor(page){
 
         this.page = page;
+        //Search Class
         this.AddClass =page.locator("xpath=//button[@role='menuitem']")
         this.closeAddclass =page.locator("xpath=/html/body/app-root/app-session/p-dialog/div/div/div[1]/div/button")
         this.batchNameSort = page.locator('//th[2]');
@@ -20,8 +21,19 @@ export class SortClassPage {
        this.classDescList = page.locator("xpath=//tbody//td[4]");
        this.statusList = page.locator("xpath=//tbody//td[5]");
        this.dateList = page.locator("xpath=//tbody//td[6]");
-       this.staffList = page.locator("xpath=//tbody//td[7]");        
-								
+       this.staffList = page.locator("xpath=//tbody//td[7]");  
+       this.CancelAddclass =page.locator("xpath=//p-dialog/div/div/div[3]/button[1]")      
+       //Delete Class
+       this.DeleteRowlevel =page.locator("xpath=//td[8]/div/span/button[2]")
+       this.confirmDialouge = page.getByText('Confirm');
+       this.NoButton = page.locator("xpath=//div/div[3]/button[1]");
+       this.YesButton = page.locator("xpath=//div/div[3]/button[2]");
+       this.CloseIcon = page.locator("xpath=//div[1]/div[1]/button");
+       this.Dialouge = page.locator("xpath=//div/div/div[2]/span");
+	   this.ClassTopicDelete =page.locator("xpath=//div/div[1]/table/tbody/tr[1]/td[3]")
+       this.SearchBar =page.locator('#filterGlobal')	
+       this.ManageClass = page.getByText(' Manage Class');		
+           
     }
 
     async BatchNamesort (){
@@ -103,5 +115,94 @@ export class SortClassPage {
             }
         }
     }
+// Delete Class------------------------------------------------
+
+    async DeleteIconClick(){
+        await this.AddClass.click();
+        await this.CancelAddclass.click();
+        await this.DeleteRowlevel.first().click();
+    }
+    async ClickYesButton(){
+        await this.YesButton.click();
+        
+    }
+    async ClickNoButton(){
+        await this.NoButton.click();
+        
+    }
+    async ClickCloseButton(){
+        await this.CloseIcon.click();
+        
+    }
+    async ConfirmPopUp(){
+        await expect(this.confirmDialouge).toBeVisible();
+    }
+    async NoButtonIcon(){
+        await expect(this.NoButton).toBeVisible();
+    }
+    async YesButtonIcon(){
+        await expect(this.YesButton).toBeVisible();
+    }
+    async CloseButtonIcon(){
+        await expect(this.CloseIcon).toBeVisible();
+    }
+    async DialougeText(){
+        await expect(this.Dialouge).toBeVisible();
+    }
+    async ManageClassVisible(){
+        await expect(this.ManageClass).toBeVisible();
+    }
+    async getDeleteCalssTopicText() {
+        return await this.ClassTopicDelete.innerText();
+    }
+
+
+    async  deleteAndVerifyClassTopic() {
+        // Step 1: Extract and save the row's text before deletion
+        const deletedRowText = await this.ClassTopicDelete.textContent();
+        console.log(`Deleted Row Text: ${deletedRowText}`);
     
+        // Step 2: Click the delete button
+        await this.YesButton.click();       
+    
+        // Step 4: Search for the deleted row text
+        await this.SearchBar.fill(deletedRowText);
+        await this.SearchBar.press("Enter"); // Simulate pressing Enter if required
+    
+        // Step 5: Check if the deleted row still exists in search results
+        const isResultVisible = await this.ClassTopicDelete.isVisible();
+    
+        if (isResultVisible) {
+            console.error(`"${deletedRowText}" is still visible in search results. Deletion failed.`);
+            await expect(this.ClassTopicDelete).not.toHaveText(deletedRowText);
+        } else {
+            console.log(`"${deletedRowText}" is successfully deleted and not found in search results.`);
+            await expect(this.ClassTopicDelete).not.toBeVisible();
+        }
+    }
+
+//Search Class -----------------------------------
+
+async BtachNameSearch(){
+    await this.SearchBar.fill("Python101")
+}
+async BtachNameInTable(){
+    await expect(this.batchnameList).toHaveText("Python101")
+    console.log("The Searched Class (Python101) sucessfully Displayed in Table")
+}
+async ClassTopicSearch(){
+    await this.SearchBar.fill("JavaTestPlaywright01")
+}
+async ClassTopicInTable(){
+    await expect(this.classTopicList).toHaveText("JavaTestPlaywright01")
+    console.log("The Searched Class (JavaTestPlaywright01) sucessfully Displayed in Table")
+}
+async StaffNameSearch(){
+    await this.SearchBar.fill("Getha Takur")
+}
+async StaffNameInTable(){
+    await expect(this.staffList).toHaveText("Getha Takur")
+    console.log("The Searched Class (Getha Takur) sucessfully Displayed in Table")
+}
+   
 }

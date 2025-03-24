@@ -3,7 +3,7 @@ require('dotenv').config();
 
 import{createBdd} from "playwright-bdd"
 import { ClassPage } from '../PageObjects/Class.js';
-//import{SortClassPage} from '../PageObjects/Class.js';
+
 const { PageObjectManager } = require('../PageObjects/PageObjectManager.js')
 const{Given,When,Then}=createBdd()
 const {test, expect } = require('@playwright/test')
@@ -83,3 +83,5 @@ Given('Admin is on the Manage class page', async function() {
     const sortingList = await SortClassPage.getstaffList();
     await SortClassPage.pagination_Asc_Sorting(sortingList)
   });
+
+  
