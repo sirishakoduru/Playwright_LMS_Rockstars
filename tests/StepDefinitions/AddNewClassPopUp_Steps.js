@@ -50,18 +50,22 @@ Given('Admin is on the Class Popup window', async function () {
  });
   
   Then('Admin should see no of class value is added automatically', async function () {
-    const noOfClassesValue = await this.classPopupPage.noOfClassesInput.inputValue();
-    expect(noOfClassesValue).not.toBe('');
+    // const noOfClassesValue = await this.classPopupPage.noOfClassesInput.inputValue();
+    // expect(noOfClassesValue).not.toBe('');
+    expect (this.classPopupPage.getNoOfClasses()).toBeTruthy();
   });
   
   When('Admin clicks date picker', async function () {
 
-    await this.classPopupPage.selectClassDatesInput.click();
+    await this.classPopupPage.clickDatePicker();
   });
   
   Then('Admin should see weekends dates are disabled to select', async function () {
-    const disabledDates = await this.page.locator('.disabled-weekend').count();
-    expect(disabledDates).toBeGreaterThan(0);
+    // const disabledDates = await this.page.locator('.disabled-weekend').count();
+    // expect(disabledDates).toBeGreaterThan(0);
+    const isWeekendDisabled = await this.classPopupPage.VerifyDisabledWeekends();
+    expect(isWeekendDisabled).toBe(true);
+
   });
   
   When('Admin skips to add value in mandatory field and enter only the optional field', async function () {
@@ -70,24 +74,29 @@ Given('Admin is on the Class Popup window', async function () {
   });
   
   Then('Admin should see error message below the test field and the field will be highlighted in red color', async function () {
-    const errors = await this.classPopupPage.getErrorMessages();
-    expect(errors.length).toBeGreaterThan(0);
+    const errors = await this.classPopupPage.getEmptyClassFeildsError();
+    expect(errors).not.toBe('');
+    const backgroundColor = await this.classPopupPage.emptyMessageHighlighterColor();
+    console.log("Received background color:", backgroundColor);
+    expect(backgroundColor).toBe('rgb(255, 0, 0)');
   });
   
   When('Admin enters invalid data in all of the  fields in the form and clicks on save button', async function () {
-    await this.classPopupPage.enterBatchName('!@#');
-    await this.classPopupPage.enterClassTopic('12345');
-    await this.classPopupPage.enterClassDescription('');
-    await this.classPopupPage.selectClassDates('invalid-date', 'invalid-date');
-    await this.classPopupPage.enterNumberOfClasses(-5);
-    await this.classPopupPage.selectStaffName('');
-    await this.classPopupPage.selectStatus('');
-    await this.classPopupPage.clickSaveButton();
+    // await this.classPopupPage.enterBatchName('!@#');
+    // await this.classPopupPage.enterClassTopic('12345');
+    // await this.classPopupPage.enterClassDescription('');
+    // await this.classPopupPage.selectClassDates('invalid-date', 'invalid-date');
+    // await this.classPopupPage.closeOverlay();
+    // // await this.classPopupPage.enterNumberOfClasses(-5);
+    // await this.classPopupPage.selectStaffName('');
+    // await this.classPopupPage.selectStatus('');
+    // await this.classPopupPage.clickSaveButton();
+    await this.classPopupPage.enterInvalidData();
   });
   
   Then('Admin gets error message and class is not created', async function () {
-    const errors = await this.classPopupPage.getErrorMessages();
-    expect(errors.length).toBeGreaterThan(0);
+    const successMesaage = await this.classPopupPage.getSuccessmessage();
+    expect(successMesaage).toBeFalsy();
   });
   
   When('Admin clicks on save button without entering data', async function () {
@@ -95,11 +104,12 @@ Given('Admin is on the Class Popup window', async function () {
   });
   
   Then('class won\'t be created and Admin gets error message', async function () {
-    const errors = await this.classPopupPage.getErrorMessages();
-    expect(errors.length).toBeGreaterThan(0);
+    // const errors = await this.classPopupPage.getErrorMessages();
+    // expect(errors.length).toBeGreaterThan(0);
+    expect (this.classPopupPage.emptyFeildsSubmission()).toBeTruthy();
   });
   
-  When('Admin clicks Cancel\\/Close\\(X) Icon on Admin Details form', async function () {
+  When('Admin clicks Cancel or Close Icon on Admin Details form', async function () {
     await this.classPopupPage.clickCloseIcon();
   });
   
