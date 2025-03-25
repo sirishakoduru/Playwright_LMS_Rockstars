@@ -57,10 +57,12 @@ Given('Admin is on the Add new batch pop up', async function() {
   Then('Admin should see empty text box', async function() {
    expect (this.addNewPage.verifyEmptyBatchPrefix()).toBeTruthy();
   });
-  When('Admin enters the data only to the mandatory fields and clicks save button', async function() {
+  When('Admin enters the data only to the mandatory fields with {string},{string} and clicks save button', async function ({}, DataInput, SheetName) {
+   
     await this.addNewPage.clickProgramNameDropdown();
     await this.addNewPage.selectProgramNameFromDropdown();
-    await this.addNewPage.EnterMandatoryFields('EnterMandatoryFeilds');
+    await this.addNewPage.EnterMandatoryFields(DataInput,SheetName);
+    await this.addNewPage.clickStatusActive();
   });
   
   Then('Admin should get a successful message', async function() {

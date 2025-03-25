@@ -27,13 +27,15 @@ Given('Admin is on the Class Popup window', async function () {
     await this.classPopupPage.enterBatchName();
     await this.classPopupPage.enterClassTopic('Playwright');
     await this.classPopupPage.enterClassDescription('PlaywrightClasses');
-    await this.classPopupPage.closeOverlay();
+    // await this.classPopupPage.closeOverlay();
     // await this.classPopupPage.clickDatePicker();
     await this.classPopupPage.selectClassDates();
     await this.classPopupPage.closeOverlay();
     // await this.classPopupPage.enterNumberOfClasses();
      await this.classPopupPage.clickStaffNameDropdown();
+     await this.page.waitForTimeout(3000);
      await this.classPopupPage.selectStaffName(),
+     await this.page.waitForTimeout(3000);
      await this.classPopupPage.selectStatus();
      await this.classPopupPage.clickSaveButton();
   });
