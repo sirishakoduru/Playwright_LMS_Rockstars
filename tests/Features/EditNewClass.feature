@@ -43,7 +43,7 @@ Then Admin gets message "Class details updated Successfully " and see the update
 Scenario: Validate invalid values in the text fields
 Given Admin is on the Edit Class Popup window
 When Admin enters only numbers or special char in the text fields
-Then Admin should get Error message 
+Then Admin should get Error message
 
 Scenario: Validate Cancel button on Edit popup
 Given Admin is on the Edit Class Popup window

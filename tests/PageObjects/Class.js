@@ -348,7 +348,7 @@ async enterInvalidDetails() {
       await invalidStatusOption.click();
   } else {
       console.warn("⚠️ Invalid status not found, leaving empty.");
-      await this.page.keyboard.press('Escape');
+      await this.page.keyboard.press('Escape'); 
   }
 }
 
