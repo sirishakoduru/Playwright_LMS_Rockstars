@@ -22,7 +22,7 @@ Given('Admin is on the Batch page', async function () {
     await this.addNewPage.ClickBatchButton();
   });
   
-  Then('Admin should see sub menu in menu bar as {string}', async function() {
+  Then('Admin should see sub menu in menu bar as Add New Batch', async function() {
     expect (this.addNewPage.verifyaddNewPageBtn).toBeTruthy();
   });
   

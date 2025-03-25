@@ -29,7 +29,7 @@ Then Admin gets message Class added Successfully
 # Then class won't be created and Admin gets error message
 
 # Scenario: Validate Cancel/Close(X) icon on class Details form
-# When Admin clicks Cancel/Close(X) Icon on Admin Details form
+# When Admin clicks Cancel or Close Icon on Admin Details form
 # Then Class Details popup window should be closed without saving
 
 # Scenario: Validate Save button on class Details form

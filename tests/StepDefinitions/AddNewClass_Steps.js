@@ -30,7 +30,7 @@ Given('Admin is on the Manage class page', async function () {
 
   });
 
-  Then('Admin should see few input fields and their respective text boxes in the class details window:', async ({}, dataTable) => {
+  Then('Admin should see few input fields and their respective text boxes in the class details window:', async ({page}, dataTable) => {
     //this.NewClassPageObj = new ClassPage(this.page);
     this.NewClassPageObj = new ClassPage(this.page);
     const expectedFields = dataTable.rows().flat(); // Converts the table into an array

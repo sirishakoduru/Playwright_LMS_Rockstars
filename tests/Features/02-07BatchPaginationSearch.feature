@@ -23,10 +23,10 @@ Given Admin is on the batch page
 # When Admin clicks first page link on the data table
 # Then Admin should see the very first page on the data table
 
-# Scenario: validate search box functionality
-# Given Admin is on the batch page
-# When Admin enters the batch name in the search text box
-# Then Admin should see the filtered batches in the data table
+Scenario: validate search box functionality
+Given Admin is on the batch page
+When Admin enters the batch name in the search text box
+Then Admin should see the filtered batches in the data table
 
 Scenario: Validate logout option in the header is visible and enabled from the batch page
 Given Admin is on the batch page

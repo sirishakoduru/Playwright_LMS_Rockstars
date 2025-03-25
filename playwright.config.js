@@ -4,13 +4,8 @@ import {defineBddConfig} from 'playwright-bdd'
 import dotenv from 'dotenv';
 
 const testDir = defineBddConfig ({
-<<<<<<< Updated upstream
-  features: ['tests/Features/AddNewClassPopUp.feature'],
-  steps: ['tests/StepDefinitions/AddNewClassPopUp_Steps.js','tests/Hooks/Hooks.js']
-=======
-  features: ['tests/features/DeleteClass.feature'],
-  steps: ['tests/StepDefinitions/SortClass_Step.js','tests/Hooks/Hooks.js']
->>>>>>> Stashed changes
+  features: ['tests/Features/02-04AddNewBatchPopup.feature'],
+  steps: ['tests/StepDefinitions/AddNewBatchPopup_Step.js','tests/Hooks/Hooks.js']
 });
 
 dotenv.config({
@@ -39,7 +34,8 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [["line"], ["allure-playwright"],["html"]],
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
