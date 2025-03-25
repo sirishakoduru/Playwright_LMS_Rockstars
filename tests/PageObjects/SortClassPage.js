@@ -32,7 +32,19 @@ export class SortClassPage {
        this.Dialouge = page.locator("xpath=//div/div/div[2]/span");
 	   this.ClassTopicDelete =page.locator("xpath=//div/div[1]/table/tbody/tr[1]/td[3]")
        this.SearchBar =page.locator('#filterGlobal')	
-       this.ManageClass = page.getByText(' Manage Class');					
+       this.ManageClass = page.getByText(' Manage Class');	
+       //Navigation Validation from Manage Class to other Pages
+       this.Classpage = page.locator("xpath=//mat-toolbar/div/button[3]")
+       this.AddBatch = page.getByText('Add New Batch');     
+       this.Batch = page.locator("xpath=//mat-toolbar/div/button[2]")   
+       this.Program =page.locator("xpath=//*[@id='program']")
+       this.Logout =page.locator("xpath=//*[@id='logout']")
+       this.AddBatchPopClose =page.locator("xpath=//button[@label='Cancel']")
+       this.ManageBatch = page.getByText(' Manage Batch ');	
+       this.AddProgram = page.getByRole('menuitem', { name: 'Add New Program' })
+       this.AddProgrampopclose =page.locator("xpath=//p-dialog/div/div/div[1]/div/button")
+       this.ManageProgram = page.getByText('Manage Program');
+       this.LoginPage = page.getByText('Please login to LMS application ');	
     }
 
     async BatchNamesort (){
@@ -114,6 +126,8 @@ export class SortClassPage {
             }
         }
     }
+// Delete Class------------------------------------------------
+
     async DeleteIconClick(){
         await this.AddClass.click();
         await this.CancelAddclass.click();
@@ -177,6 +191,69 @@ export class SortClassPage {
             await expect(this.ClassTopicDelete).not.toBeVisible();
         }
     }
-   
+
+//Search Class -----------------------------------
+
+async BtachNameSearch(){
+    await this.SearchBar.fill("Python101")
+}
+async BtachNameInTable(){
+    await expect(this.batchnameList).toHaveText("Python101")
+    console.log("The Searched Class (Python101) sucessfully Displayed in Table")
+}
+async ClassTopicSearch(){
+    await this.SearchBar.fill("JavaTestPlaywright01")
+}
+async ClassTopicInTable(){
+    await expect(this.classTopicList).toHaveText("JavaTestPlaywright01")
+    console.log("The Searched Class (JavaTestPlaywright01) sucessfully Displayed in Table")
+}
+async StaffNameSearch(){
+    await this.SearchBar.fill("Getha Takur")
+}
+async StaffNameInTable(){
+    await expect(this.staffList).toHaveText("Getha Takur")
+    console.log("The Searched Class (Getha Takur) sucessfully Displayed in Table")
+}
+
+//Navigation Validation from Manage Class to other Pages-----------------------
+
+async ManageClassvisible(){
+    await expect(this.ManageClass).toBeVisible();
+}
+async ManageBatchvisible(){
+    await expect(this.ManageBatch).toBeVisible();
+}
+async Manageprogramhvisible(){
+    await expect(this.ManageProgram).toBeVisible();
+}
+async Loginpagevisible(){
+    await expect(this.LoginPage).toBeVisible();
+}
+async ClassPageClick(){
+    await this.Classpage.click();
+    await this.AddClass.click();
+    await this.CancelAddclass.click();
     
+}
+async BatchPageClick(){
+    await this.Batch.click();
+    await this.AddBatch.click();
+    await this.AddBatchPopClose.click();
+    
+}
+async ProgramPageClick(){
+    await this.Program.click();
+    await this.AddProgram.click();
+    await this.AddProgrampopclose.click();
+    
+}
+async LogoutClick(){
+    await this.Logout.click();
+    
+    
+}
+
+
+   
 }
