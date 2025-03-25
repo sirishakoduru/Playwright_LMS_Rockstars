@@ -81,6 +81,7 @@ When('Update the mandatory fields with valid values and click save', async funct
     await this.EditClassPageObj.EditcancelButton();
   });
   
+  
   Then('Admin can see the class details popup disappears and can see nothing changed for particular Class', async function (){
     const popup = await this.EditClassPageObj.editClassClosePopUp();
      await expect(popup).toBeHidden(); 

@@ -454,7 +454,7 @@ async updateFields(valid = true) {
   
   }
   async enterInvalidDataInDescription() {
-    await this.classDescriptionTextarea.fill('!@#$%&*'); // Invalid input (numbers)
+    await this.classDescriptionTextarea.fill('!@#$%&*');
   }
 
 }

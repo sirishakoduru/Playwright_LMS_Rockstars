@@ -38,7 +38,7 @@ Then Admin gets message "Class details updated Successfully " and see the update
 Scenario: Check if the optional fields are updated with valid data
 Given Admin is on the Edit Class Popup window
 When Update the optional fields with valid values and click save
-Then Admin gets message "Class details updated Successfully " and see the updated values in data table
+Then Admin gets message "Class details updated Successfully " and see the updated values in data table 
 
 Scenario: Validate invalid values in the text fields
 Given Admin is on the Edit Class Popup window
