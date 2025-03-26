@@ -34,6 +34,8 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  // @ts-ignore
+  workers: 1,
   reporter: [["line"], ["allure-playwright"],["html"]],
   globalTimeout: 3_600_000,
   expect: {

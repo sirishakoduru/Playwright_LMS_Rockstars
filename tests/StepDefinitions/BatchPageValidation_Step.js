@@ -16,7 +16,7 @@ Given('Admin is on the home page', async function() {
   //  await this.batchPageobj.gotoLoginUrl();
   //  this.batchPageobj.login();
   //  await this.batchPageobj.gotoHomeUrl();
-  //  await this.batchPageobj.clickBatch();
+     await this.batchPageobj.clickBatch();
 });
 
 Then('Admin should see the {string} Title', async function() {
