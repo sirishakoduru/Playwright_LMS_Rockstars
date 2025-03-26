@@ -1,10 +1,10 @@
-
 const { ProgramPage } = require("./ProgramPage");
 const { CommonPage } = require("./CommonPage");
 const {LoginPage} = require ("./LoginPage")
 const {LogOutPage} = require("./LogOutPage");
 const {SortClassPage} = require("./SortClassPage");
 const {BatchPage} = require("./Batch");
+
 
 
 export class PageObjectManager{
@@ -61,6 +61,6 @@ export class PageObjectManager{
         return this.BatchPage
     }
 
+    }
 
-}
 

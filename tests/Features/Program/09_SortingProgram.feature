@@ -10,7 +10,13 @@ Given Admin is on Program module
 When Admin clicks on Arrow next to programName
 Then Admin See the Program Name is sorted in Ascending order or Descending order
 
-Scenario: Verify Admin is able to search results found for program name
+Scenario: Verify sorting of  Program Description in  Ascending order/Descending order
 Given Admin is on Program module
-When Admin enter the program to search By program name
-Then Admin should able to see Program name, description, and status for searched program name
+When Admin clicks on Arrow next to Program Description
+Then Admin See the program Description is sorted in Ascending order or Descending order
+
+Scenario: Verify sorting of Program status in Ascending order/Descending order
+Given Admin is on Program module
+When Admin clicks on Arrow next to Program status
+Then Admin See the  Program Status is sorted in Ascending order or Descending order
+
