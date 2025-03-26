@@ -19,7 +19,7 @@ Given('Admin is on the Manage class page', async function () {
     await this.NewClassPageObj.addNew_ClassButton();
   });
   
-  Then('Admin should see a popup open for class details with empty form along with <SAVE> and <CANCEL> button and Close\\(X) Icon on the top right corner of the window', async function () {
+  Then('Admin should see a popup open for class details with empty form along with <SAVE> and <CANCEL> button and Close X Icon on the top right corner of the window', async function () {
     
    expect (this.NewClassPageObj.isPopupVisible()).toBeTruthy();
     expect(this.NewClassPageObj.isFormEmpty()).toBeTruthy();
