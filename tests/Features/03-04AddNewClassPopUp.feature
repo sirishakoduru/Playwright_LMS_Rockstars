@@ -2,10 +2,13 @@ Feature: Add New Class popup
 Background: Admin is on the Manage Class page after login
           Given Admin is on the Class Popup window
 
-Scenario: Check if class is created when only mandatory fields are entered with valid data
+Scenario Outline: Check if class is created when only mandatory fields are entered with valid data
 Given Admin is on the Class Popup window
-When Admin enters mandatory fields in the form and clicks on save button
+When Admin enters mandatory fields in the form from "<DataInput>","<sheetName>" and clicks on save button
 Then Admin gets message Class added Successfully 
+Examples:
+|   DataInput        | sheetName  |
+|   enterMandatoryFeilds | Class|
 
 # Scenario: Check no classes value added when selecting class dates
 # When Admin selects class date in date picker

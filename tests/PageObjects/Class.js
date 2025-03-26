@@ -1,5 +1,7 @@
 import { expect } from "@playwright/test";
+const { getDataByDataInput } = require('../Utilities/ExcelReader.js');
 require('dotenv').config();
+const filepath = process.env.FilePath;
 
 export class ClassPage{
     page;
@@ -39,7 +41,6 @@ export class ClassPage{
         //  this.dropdownList = page.getByText('SMPO10');
 
        //this.classTopicInput = page.locator('input[name="classTopic"]');
-       this.classTopicInput = page.locator('#classTopic');
         this.batchDropDown = page.locator("//p-dropdown[@id='batchName']//div[contains(@class,'p-dropdown-trigger')]")
          this.batchNameInput = page.locator("//body//app-root//p-dropdownitem")
          this.disabledBatchname = page.locator("//p-dropdown[@id='batchName']")
@@ -304,19 +305,6 @@ async getNoOfClassesValue() {
   return await this.noOfClasses.inputValue();  // Get value from the number of classes input field
 }
 
-//  async enterNumberOfClasses(numberOfClasses) {
-//   await this.numberOfClassesInput.click();
-//   await this.numberOfClassesInput.fill("2");
-//  //await this.noOfClassesInput.fill(numberOfClasses.toString());
-//  return await this.numberOfClassesInput.inputValue();
-//  }
-
-//  async selectStaffName(staffName) {
-
-//  await this.staffNameSelect.selectOption({ label: staffName });
-//  await this.staffNameSelect.fill(staffName).click();
-//  }
-
 async clickStaffNameDropdown(){
   await this.staffnameDropdown.click();
 }
@@ -457,7 +445,25 @@ async clickCloseIcon() {
 
 async getSuccessMessage() {
 return this.successMsg.textContent();
-return this.successMsg.textContent();
+}
+async enterMandatoryFeilds(DataInput,sheetName){
+        const testData = getDataByDataInput(filepath,sheetName,DataInput);
+        console.log(testData)
+        const classTopicInput = testData['classTopic'];
+        const classDescription = testData['classDescription'];
+        await this.clickBatchDropdown();
+        await this.classTopicInput.click();
+        await this.classTopicInput.fill(classTopicInput);
+        await this.classDescriptionTextarea.fill(classDescription);
+        await this.selectClassDates();
+        await this.closeOverlay();
+        await this.clickStaffNameDropdown();
+        await this.page.waitForTimeout(3000);
+        await this.selectStaffName();
+        await this.page.waitForTimeout(3000);
+        await this.selectStatus();
+        await this.clickSaveButton();
+  
 }
 
 async getErrorMessages() {
