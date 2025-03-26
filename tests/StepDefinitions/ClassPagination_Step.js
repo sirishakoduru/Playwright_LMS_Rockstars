@@ -19,11 +19,11 @@ Given('Admin is on Manage class page', async function() {
     
   });
   
-  When('Admin clicks Last page link', async function() {
+  When('Admin clicks Last page link of class', async function() {
     
   });
   
-  Then('Admin should see the last page record on the table with Next page link are disabled', async function() {
+  Then('Admin should see the last page record on the table with Next page link are disabled of class', async function() {
     
   });
   
@@ -31,7 +31,7 @@ Given('Admin is on Manage class page', async function() {
     
   });
   
-  When('Admin clicks First page link', async function() {
+  When('Admin clicks First page link of class', async function() {
     
   });
   
@@ -46,6 +46,6 @@ Given('Admin is on Manage class page', async function() {
   When('Admin clicks Start page link', async function() {
     
   });
-  Then('Admin should see the very first page record on the table with Previous page link are disabled', async function() {
+  Then('Admin should see the very first page record on the table with Previous page link are disabled of class', async function() {
     
   });

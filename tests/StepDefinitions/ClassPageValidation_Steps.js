@@ -19,12 +19,12 @@ When('Admin enter valid data in all field and clicks login button', async functi
   await this.ClassPageObj.login();
 });
 
-Given('Admin is on the home Page', async function () {
-  this.ClassPageObj = new ClassPage(this.page);
-  await this.ClassPageObj.gotoLoginUrl();
-  await this.ClassPageObj.login();
+// Given('Admin is on the home Page', async function () {
+//   this.ClassPageObj = new ClassPage(this.page);
+//   await this.ClassPageObj.gotoLoginUrl();
+//   await this.ClassPageObj.login();
 
-});
+// });
 
 When('Admin clicks the Class Navigation bar in the Header', async function () {
   this.ClassPageObj = new ClassPage(this.page)

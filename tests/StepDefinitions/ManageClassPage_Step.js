@@ -13,11 +13,11 @@ Given('Admin is on the home page after login', async function () {
 
 });
 
-Then('Admin should see the {string} Title', async function () {
+// Then('Admin should see the {string} Title', async function () {
 
-  await this.ManageClassPageObj.LMS_Title();
+//   await this.ManageClassPageObj.LMS_Title();
 
-});
+// });
 
 Then('Admin should see the {string} Header', async function () {
 

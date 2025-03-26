@@ -6,7 +6,7 @@ const { Given, When, Then ,test} = createBdd();
 
 let EditClassPageObj;
 
-Given('Admin is on the Manage class page', async function () {
+Given('Admin is on the Manage class page of class', async function () {
     this.EditClassPageObj = new ClassPage(this.page);
     await this.EditClassPageObj.gotoLoginUrl();
     await this.EditClassPageObj.login();
