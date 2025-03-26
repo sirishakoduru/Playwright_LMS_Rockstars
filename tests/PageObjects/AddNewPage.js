@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
-const filepath = 'tests/TestData/LMS_Data.xlsx';
 const { getDataByDataInput } = require('../Utilities/ExcelReader.js');
+require('dotenv').config();
+const filepath = process.env.FilePath;
 export class addNewBatchPage{
     page
     constructor(page){
@@ -123,24 +124,39 @@ export class addNewBatchPage{
     async verifyEmptyBatchPrefix(){
         return await this.batchName.inputValue();
     }
-    async EnterMandatoryFields(DataInput){
+    async clickStatusActive(){
+        await this.statusActive.click();
+    }
+    async EnterMandatoryFields(DataInput,sheetName){
         // await this.batchNameSuffix.fill("2024");
         // await this.batchDescription.fill("The Batch list is created")
         // await this.statusActive.click();
         // await this.NumberOfClasses.fill("2");
         // await this.saveButton.click();
-        const filepath = 'tests/TestData/LMS_Data.xlsx';
-        const sheetName = 'Batch';   
+        // const filepath = 'tests/TestData/LMS_Data.xlsx';
+        // const sheetName = 'Batch';   
         const testData = getDataByDataInput(filepath,sheetName,DataInput);
         const batchNameSuffix = testData['batchNameSuffix'].toString();
         const batchDescription = testData['batchDescription'];
         const NoOfClasses = testData.NumberOfClasses.toString();
         await this.batchNameSuffix.fill(batchNameSuffix);
         await this.batchDescription.fill(batchDescription);
-        await this.statusActive.click();
         await this.NumberOfClasses.fill(NoOfClasses);
         await this.saveButton.click();
     }
+    async validateTextbox(DataInput,sheetname){
+        const filepath = process.env.FilePath
+        const testData = getDataByDataInput(filepath,sheetname,DataInput);
+        const programName=testData["ProgramName"]
+        //const programDescription=testData["Description"]
+        
+        await this.programName.fill(programName)
+        //await this.programDescription.fill(programDescription)
+
+        // const expectedErrorMessage = testData['ErrorMessage']
+        // await expect (this.errorMessage).toContainText(expectedErrorMessage);
+
+    }
     async getSuccessmessage(){
         const successMsg1 = await this.successMsg;
         const successMsg2 = await this.createdMsg;

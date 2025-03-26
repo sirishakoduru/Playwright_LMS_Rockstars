@@ -177,3 +177,43 @@ Then('Admin should see the footer as In total there are z programs z- Total numb
   // Step: Then Admin should see the footer as In total there are z programs z- Total number of records
   // From: tests\features\Program\03_ProgramPageValidation.feature:53:9
 });
+// ---sort-------------------
+
+When('Admin clicks on program in dashboard and admin lands on Manage program Page', async function() {
+  const programPage = this.poManager.getProgramPage()
+    await programPage.clickOnProgramLink()
+    const actualText = await programPage.getManageProgramText()
+    expect(await actualText).toBe(' Manage Program')
+});
+
+Given('Admin is on Program module', async function() {
+  console.log("Admin is on Program module")
+});
+
+When('Admin clicks on Arrow next to programName', async function() {
+  const programPage = this.poManager.getProgramPage()
+  await programPage.closeOverlay();
+  await programPage.clickSortProgramName();
+  await programPage.SortProgramNameItemsAsc();
+});
+
+Then('Admin See the Program Name is sorted in Ascending order or Descending order', async function() {
+  const programPage = this.poManager.getProgramPage()
+  const sortedList = await programPage.SortProgramNameItemsAsc();
+  const ActualList = await programPage.getProgramNameList();
+  expect(ActualList).toEqual(sortedList);
+  const sortedListDesc = await programPage.SortProgramNameItemsDesc();
+  const ActualListDesc = await programPage.getProgramNameList();
+  expect(ActualListDesc).toEqual(sortedListDesc);
+  
+});
+When('Admin enter the program to search By program name', async function() {
+  const programPage = this.poManager.getProgramPage()
+  await programPage.closeOverlay();
+  await programPage.EnterProgramNameInSearch();
+  await programPage.searchDetails();
+});
+
+Then('Admin should able to see Program name, description, and status for searched program name', async function() {
+  
+});

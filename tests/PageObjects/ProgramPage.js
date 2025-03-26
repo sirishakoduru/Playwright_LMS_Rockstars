@@ -18,6 +18,9 @@ export class ProgramPage {
             this.mainCheckBox=page.locator("//div[@class='p-checkbox-box']")
             //this.batchHeaders=page.locator("//thead[@class='p-datatable-thead']")
             //this.batchLink=this.programLink = page.getByRole('button', { name: 'Batch' })
+            this.sortProgramName = page.locator("//th[contains(text(), 'Program Name ')]");
+            this.search = page.locator("#filterGlobal");
+            this.table = page.locator("//table")
         }
 
         async batchlink(){
@@ -97,6 +100,51 @@ export class ProgramPage {
             const moduleNames = await this.moduleNames.allTextContents()
             return moduleNames
         }
+        async clickSortProgramName(){
+            await this.sortProgramName.click();
+        }
+        async closeOverlay() {
+            await this.page.mouse.click(0, 0); // Clicks at the top-left corner to dismiss the overlay
+        }
+    async getProgramNameList(){
+        const programNames = await this.sortProgramName.allTextContents();
+        const ActualList = programNames.map(name => name.toLowerCase().trim());
+        console.log("Program name list: ",ActualList )
+        return ActualList;
+    }
+
+        async SortProgramNameItemsAsc(){
+            const originalList = await this.getProgramNameList();
+            const sortedList = [...originalList].sort(); // Use spread operator to avoid mutating originalList
+            console.log("Program names sorted list:", sortedList);
+            console.log("Program Name List:", originalList);
+            return sortedList;
+        }
+        async SortProgramNameItemsDesc(){
+            const originalList = await this.getProgramNameList();
+            const sortedList = [...originalList].sort().reverse(); // Use spread operator to avoid mutating originalList
+            console.log("Program names sorted list:", sortedList);
+            return sortedList;
+        }
+        async EnterProgramNameInSearch(){
+            await this.search.click();
+            await this.search.fill("playwrightjavascript");
+        }
+        async searchDetails(){
+            // const table=await this.table
+            const rows=await this.table.locator("//tbody//tr")
+            for(let i=0;i<await rows.count();i++){
+                const row=rows.nth(i)
+                const tds=row.locator('td')
+    
+                for(let j=0;j<await tds.count()-1;j++){
+                    const text = await tds.nth(j).textContent()
+                    console.log(text);
+    
+                }
+            }
+        }
+    
 
 
 

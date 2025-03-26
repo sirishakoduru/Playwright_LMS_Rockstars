@@ -6,4 +6,6 @@ node_modules/
 /playwright/.cache/
 /cucumber-report.html/
 /screenshots/
-.features-gen
+.features-gen/
+/allure/
+/allure-results/
