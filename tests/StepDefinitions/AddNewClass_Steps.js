@@ -19,7 +19,7 @@ Given('Admin is on the Manage class page', async function () {
     await this.NewClassPageObj.addNew_ClassButton();
   });
   
-  Then('Admin should see a popup open for class details with empty form along with <SAVE> and <CANCEL> button and Close\\(X) Icon on the top right corner of the window', async function () {
+  Then('Admin should see a popup open for class details with empty form along with <SAVE> and <CANCEL> button and Close X Icon on the top right corner of the window', async function () {
     
    expect (this.NewClassPageObj.isPopupVisible()).toBeTruthy();
     expect(this.NewClassPageObj.isFormEmpty()).toBeTruthy();
@@ -30,7 +30,7 @@ Given('Admin is on the Manage class page', async function () {
 
   });
 
-  Then('Admin should see few input fields and their respective text boxes in the class details window:', async ({}, dataTable) => {
+  Then('Admin should see few input fields and their respective text boxes in the class details window:', async ({page}, dataTable) => {
     //this.NewClassPageObj = new ClassPage(this.page);
     this.NewClassPageObj = new ClassPage(this.page);
     const expectedFields = dataTable.rows().flat(); // Converts the table into an array

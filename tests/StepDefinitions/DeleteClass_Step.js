@@ -9,7 +9,7 @@ const playwright = require('@playwright/test');
 
 
 // Class Delete
-Given('Admin is on Manage Class Page', async function() {
+Given('Admin is on the Manage class page for delete', async function() {
     this.ClassPageObj = new ClassPage(this.page);
     await this.ClassPageObj.gotoLoginUrl();
     await this.ClassPageObj.login();

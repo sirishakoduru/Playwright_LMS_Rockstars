@@ -4,13 +4,8 @@ import {defineBddConfig} from 'playwright-bdd'
 import dotenv from 'dotenv';
 
 const testDir = defineBddConfig ({
-<<<<<<< Updated upstream
-  features: ['tests/Features/AddNewClassPopUp.feature'],
+  features: ['tests/Features/04-04AddNewClassPopUp.feature'],
   steps: ['tests/StepDefinitions/AddNewClassPopUp_Steps.js','tests/Hooks/Hooks.js']
-=======
-  features: ['tests/features/DeleteClass.feature'],
-  steps: ['tests/StepDefinitions/SortClass_Step.js','tests/Hooks/Hooks.js']
->>>>>>> Stashed changes
 });
 
 dotenv.config({
@@ -39,7 +34,12 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [["line"], ["allure-playwright"],["html"]],
+  globalTimeout: 3_600_000,
+  expect: {
+    timeout: 10_000,
+  },
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -47,6 +47,8 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    /* Screenshot on failure. See https://playwright.dev/docs/screenshots */
+    screenshot: "only-on-failure",
   },
 
   /* Configure projects for major browsers */

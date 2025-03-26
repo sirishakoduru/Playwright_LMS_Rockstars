@@ -13,34 +13,16 @@ Given('Admin is on the Class Popup window', async function () {
     await this.classPopupPage.classButton();
     await this.classPopupPage.addNew_ClassButton();
     expect (this.classPopupPage.isPopupVisible()).toBeTruthy();
-    // expect(this.classPopupPage.isFormEmpty()).toBeTruthy();
-    // expect(this.classPopupPage.isSaveButtonVisible()).toBeTruthy();
-    // expect(this.classPopupPage.isCancelButtonVisible()).toBeTruthy();
-    // expect(this.classPopupPage.isCloseIconVisible()).toBeTruthy();
-
   });
   
-  When('Admin enters mandatory fields in the form and clicks on save button', async function () {
-   
-    this.classPopupPage = new ClassPage(this.page);
+  When('Admin enters mandatory fields in the form from {string},{string} and clicks on save button', async function({}, sheetName, DataInput) {
     
-    await this.classPopupPage.enterBatchName();
-    await this.classPopupPage.enterClassTopic('Playwright');
-    await this.classPopupPage.enterClassDescription('PlaywrightClasses');
-    await this.classPopupPage.closeOverlay();
-    // await this.classPopupPage.clickDatePicker();
-    await this.classPopupPage.selectClassDates();
-    await this.classPopupPage.closeOverlay();
-    // await this.classPopupPage.enterNumberOfClasses();
-     await this.classPopupPage.clickStaffNameDropdown();
-     await this.classPopupPage.selectStaffName(),
-     await this.classPopupPage.selectStatus();
-     await this.classPopupPage.clickSaveButton();
+    this.classPopupPage = new ClassPage(this.page);
+    await this.classPopupPage.enterMandatoryFeilds(sheetName, DataInput);
+
   });
   
   Then('Admin gets message Class added Successfully', async function () {
-
-    // const message = await this.classPopupPage.getSuccessMessage();
     expect(this.classPopupPage.getSuccessmessage()).toBeTruthy();
   });
   
@@ -50,18 +32,18 @@ Given('Admin is on the Class Popup window', async function () {
  });
   
   Then('Admin should see no of class value is added automatically', async function () {
-    const noOfClassesValue = await this.classPopupPage.noOfClassesInput.inputValue();
-    expect(noOfClassesValue).not.toBe('');
+    expect (this.classPopupPage.getNoOfClasses()).toBeTruthy();
   });
   
   When('Admin clicks date picker', async function () {
 
-    await this.classPopupPage.selectClassDatesInput.click();
+    await this.classPopupPage.clickDatePicker();
   });
   
   Then('Admin should see weekends dates are disabled to select', async function () {
-    const disabledDates = await this.page.locator('.disabled-weekend').count();
-    expect(disabledDates).toBeGreaterThan(0);
+    const isWeekendDisabled = await this.classPopupPage.VerifyDisabledWeekends();
+    expect(isWeekendDisabled).toBe(true);
+
   });
   
   When('Admin skips to add value in mandatory field and enter only the optional field', async function () {
@@ -70,24 +52,21 @@ Given('Admin is on the Class Popup window', async function () {
   });
   
   Then('Admin should see error message below the test field and the field will be highlighted in red color', async function () {
-    const errors = await this.classPopupPage.getErrorMessages();
-    expect(errors.length).toBeGreaterThan(0);
+    const errors = await this.classPopupPage.getEmptyClassFeildsError();
+    expect(errors).not.toBe('');
+    const backgroundColor = await this.classPopupPage.emptyMessageHighlighterColor();
+    console.log("Received background color:", backgroundColor);
+    expect(backgroundColor).toBe('rgb(255, 0, 0)');
   });
   
   When('Admin enters invalid data in all of the  fields in the form and clicks on save button', async function () {
-    await this.classPopupPage.enterBatchName('!@#');
-    await this.classPopupPage.enterClassTopic('12345');
-    await this.classPopupPage.enterClassDescription('');
-    await this.classPopupPage.selectClassDates('invalid-date', 'invalid-date');
-    await this.classPopupPage.enterNumberOfClasses(-5);
-    await this.classPopupPage.selectStaffName('');
-    await this.classPopupPage.selectStatus('');
-    await this.classPopupPage.clickSaveButton();
+
+    await this.classPopupPage.enterInvalidData();
   });
   
   Then('Admin gets error message and class is not created', async function () {
-    const errors = await this.classPopupPage.getErrorMessages();
-    expect(errors.length).toBeGreaterThan(0);
+    const successMesaage = await this.classPopupPage.getSuccessmessage();
+    expect(successMesaage).toBeFalsy();
   });
   
   When('Admin clicks on save button without entering data', async function () {
@@ -95,11 +74,11 @@ Given('Admin is on the Class Popup window', async function () {
   });
   
   Then('class won\'t be created and Admin gets error message', async function () {
-    const errors = await this.classPopupPage.getErrorMessages();
-    expect(errors.length).toBeGreaterThan(0);
+  
+    expect (this.classPopupPage.emptyFeildsSubmission()).toBeTruthy();
   });
   
-  When('Admin clicks Cancel\\/Close\\(X) Icon on Admin Details form', async function () {
+  When('Admin clicks Cancel or Close Icon on Admin Details form', async function () {
     await this.classPopupPage.clickCloseIcon();
   });
   

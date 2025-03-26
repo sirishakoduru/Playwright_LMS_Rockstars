@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
-const filepath = 'tests/TestData/LMS_Data.xlsx';
 const { getDataByDataInput } = require('../Utilities/ExcelReader.js');
+require('dotenv').config();
+const filepath = process.env.FilePath;
 export class addNewBatchPage{
     page
     constructor(page){
@@ -12,12 +13,14 @@ export class addNewBatchPage{
         this.batchName = page.locator('#batchProg')
         this.batchDescription = page.locator('#batchDescription');
         this.statusActive = page.locator("//*[text()=' ACTIVE ']");
+        this.statusRadioButton = page.locator('.p-radiobutton-box').first();
+        this.ActiveStatus = page.getByText("//div[text()=' ACTIVE ']");
         this.statusInactive = page.getByText(' INACTIVE ');
         this.NumberOfClasses = page.locator('#batchNoOfClasses');
         this.selectProgramName = page.locator("//ul[@role='listbox']//li[@role='option']");
         this.batchNameSuffix = page.locator("//input[@id='batchName' and (not(@hidden) or @hidden='false')]");
         this.BatchSuffixerrorMessage = page.locator("//small[@id='text-danger']");
-        this.saveButton = page.locator("//button[@class='p-button-rounded p-button-success p-button p-component ng-star-inserted']");
+        this.saveButton = page.locator("//div//button[@label='Save']");
         this.successMsg = page.getByText("Successful");
         this.createdMsg = page.getByText("Batch Created Successfully");
         this.emptyBacthDescription = page.getByText("Batch Description is required.");
@@ -95,7 +98,7 @@ export class addNewBatchPage{
         await this.programDropdown.click();
     }
     async selectProgramNameFromDropdown(){
-        await this.selectProgramName.nth(1).click();   
+        await this.selectProgramName.nth(2).click();   
     }
     async verifySelectedProgramNameInBatchPrefix(){
         const batchPrefix = await this.batchName.inputValue();
@@ -123,66 +126,55 @@ export class addNewBatchPage{
     async verifyEmptyBatchPrefix(){
         return await this.batchName.inputValue();
     }
-    async EnterMandatoryFields(DataInput){
-        // await this.batchNameSuffix.fill("2024");
-        // await this.batchDescription.fill("The Batch list is created")
-        // await this.statusActive.click();
-        // await this.NumberOfClasses.fill("2");
-        // await this.saveButton.click();
-        const filepath = 'tests/TestData/LMS_Data.xlsx';
-        const sheetName = 'Batch';   
-        const testData = getDataByDataInput(filepath,sheetName,DataInput);
-        const batchNameSuffix = testData['batchNameSuffix'].toString();
-        const batchDescription = testData['batchDescription'];
-        const NoOfClasses = testData.NumberOfClasses.toString();
-        await this.batchNameSuffix.fill(batchNameSuffix);
-        await this.batchDescription.fill(batchDescription);
-        await this.statusActive.click();
-        await this.NumberOfClasses.fill(NoOfClasses);
+    async clickStatusActive(){
+        await this.statusRadioButton.click();
+    }
+    async clickSaveButton(){
         await this.saveButton.click();
     }
-    async getSuccessmessage(){
-        const successMsg1 = await this.successMsg;
-        const successMsg2 = await this.createdMsg;
-        let sucessMsgCreation = successMsg1 + " " + successMsg2;
-        return sucessMsgCreation;
-    }
-    async verifyWithEmptyMandatoryFeild(DataInput){
-        // await this.batchNameSuffix.fill("2008");
-        // await this.batchDescription.fill(" ");
-        // await this.statusActive.click();
-        // await this.NumberOfClasses.fill("2");
-        // await this.saveButton.click();
-        const filepath = 'tests/TestData/LMS_Data.xlsx';
-        const sheetName = 'Batch';   
+    async EnterMandatoryFields(DataInput,sheetName){  
         const testData = getDataByDataInput(filepath,sheetName,DataInput);
         const batchNameSuffix = testData['batchNameSuffix'].toString();
         const batchDescription = testData['batchDescription'];
         const NoOfClasses = testData.NumberOfClasses.toString();
         await this.batchNameSuffix.fill(batchNameSuffix);
         await this.batchDescription.fill(batchDescription);
-        await this.statusActive.click();
+        await this.NumberOfClasses.fill(NoOfClasses);
+        // await this.saveButton.click();
+    }
+    async getSuccessmessage(){
+        const successMsg1 = await this.successMsg.first().textContent();
+        const successMsg2 = await this.createdMsg.first().textContent();
+        let sucessMsgCreation = successMsg1 + " " + successMsg2;
+        console.log("sucess message :",sucessMsgCreation);
+        return sucessMsgCreation;
+    }
+    async verifyWithEmptyMandatoryFeild(DataInput,sheetName){ 
+        const testData = getDataByDataInput(filepath,sheetName,DataInput);
+        console.log("batch name: ",testData['batchNameSuffix'].toString())
+        const batchNameSuffix = testData['batchNameSuffix'].toString();
+        console.log("batch name: ",batchNameSuffix)
+        const batchDescription = testData['batchDescription'];
+        const NoOfClasses = testData.NumberOfClasses.toString();
+        await this.batchNameSuffix.fill(batchNameSuffix);
+        // await this.batchDescription.fill('batchDescription');
+        await this.statusRadioButton.click();
         await this.NumberOfClasses.fill(NoOfClasses);
         await this.saveButton.click();
     }
     async verifyErrorMsgWithEmptyMandatoryFeild(){
+        console.log("error message: ",await this.emptyBacthDescription.textContent() )
         return await this.emptyBacthDescription;
+        
     }
-    async clickCancelButton(DataInput){
-        // await this.batchNameSuffix.fill("2024");
-        // await this.batchDescription.fill("The Batch list is created")
-        // await this.statusActive.click();
-        // await this.NumberOfClasses.fill("2");
-        // await this.cancelButton.click();
-        const filepath = 'tests/TestData/LMS_Data.xlsx';
-        const sheetName = 'Batch';   
+    async clickCancelButton(DataInput,sheetName){
         const testData = getDataByDataInput(filepath,sheetName,DataInput);
         const batchNameSuffix = testData['batchNameSuffix'].toString();
         const batchDescription = testData['batchDescription'];
         const NoOfClasses = testData.NumberOfClasses.toString();
         await this.batchNameSuffix.fill(batchNameSuffix);
         await this.batchDescription.fill(batchDescription);
-        await this.statusActive.click();
+        await this.statusRadioButton.click();
         await this.NumberOfClasses.fill(NoOfClasses);
         await this.cancelButton.click();
     }
@@ -220,13 +212,7 @@ export class addNewBatchPage{
         await this.editDescription.fill("34");
         await this.saveButton.click();
     }
-    async EnterMandatoryFeildsforEdit(DataInput){
-        // await this.batchDescription.fill("The Batch is created for testing")
-        // await this.statusActive.click();
-        // await this.NumberOfClasses.fill("4");
-        // await this.saveButton.click();
-        const filepath = 'tests/TestData/LMS_Data.xlsx';
-        const sheetName = 'Batch';   
+    async EnterMandatoryFeildsforEdit(DataInput,sheetName){  
         const testData = getDataByDataInput(filepath,sheetName,DataInput);
         const batchDescription = testData['batchDescription'];
         const NoOfClasses = testData.NumberOfClasses.toString();
@@ -236,19 +222,13 @@ export class addNewBatchPage{
         await this.saveButton.click();
     }
     async getEditSuccessmessage(){
-        const successMsg1 = await this.successMsg
-        const successMsg2 = await this.editSucessMsg
+        const successMsg1 = await this.successMsg.textContent();
+        const successMsg2 = await this.editSucessMsg.textContent();
         let sucessMsgCreation = successMsg1 + " " + successMsg2
-        console.log("success message is",sucessMsgCreation )
+        console.log("success message is",sucessMsgCreation);
         return sucessMsgCreation;
     }
-    async clickCancelButtonForEdit(DataInput){
-        // await this.batchDescription.fill("The Batch list is created")
-        // await this.statusActive.click();
-        // await this.NumberOfClasses.fill("2");
-        // await this.cancelButton.click();
-        const filepath = 'tests/TestData/LMS_Data.xlsx';
-        const sheetName = 'Batch';   
+    async clickCancelButtonForEdit(DataInput,sheetName){ 
         const testData = getDataByDataInput(filepath,sheetName,DataInput);
         const batchDescription = testData['batchDescription'];
         const NoOfClasses = testData.NumberOfClasses.toString();

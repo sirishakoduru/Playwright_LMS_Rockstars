@@ -1,9 +1,9 @@
-
 const { ProgramPage } = require("./ProgramPage");
 const { CommonPage } = require("./CommonPage");
 const {LoginPage} = require ("./LoginPage")
 const {LogOutPage} = require("./LogOutPage");
 const {SortClassPage} = require("./SortClassPage");
+const {BatchPage} = require("./Batch");
 
 
 
@@ -17,10 +17,9 @@ export class PageObjectManager{
         this.commonPage=null
         this.LoginPage=null
         this.LogOutPage=null
+        this.BatchPage=null
 
     }
-
-
 
     getProgramPage(){
         if(!this.programPage){
@@ -55,7 +54,13 @@ export class PageObjectManager{
         }
         return this.SortClassPage
     }
+    getBatchPage(){
+        if(!this.BatchPage){
+            this.BatchPage=new BatchPage(this.page)
+        }
+        return this.BatchPage
+    }
 
+    }
 
-}
 

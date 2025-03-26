@@ -9,7 +9,7 @@ const playwright = require('@playwright/test');
     console.log("Admin launch the browser")  
   });
   
-  When('Admin gives the correct LMS portal URL', async function() {
+  When('Admin gives the correct LMS portal URL for login', async function() {
 
     const commonPage = this.poManager.getCommonPage()
     await commonPage.navigateToLoginPage()

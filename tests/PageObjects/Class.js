@@ -1,5 +1,7 @@
 import { expect } from "@playwright/test";
+const { getDataByDataInput } = require('../Utilities/ExcelReader.js');
 require('dotenv').config();
+const filepath = process.env.FilePath;
 
 export class ClassPage{
     page;
@@ -23,27 +25,55 @@ export class ClassPage{
         this.classDetailsPopup = page.locator("//div[@role='dialog']"); // Modify according to the actual class popup selector
         this.saveButton = page.locator("//span[normalize-space()='Save']");
         this.cancelButton = page.locator("/html/body/app-root/app-session/p-dialog/div/div/div[3]/button[1]");
+        this.closeIcon = page.locator("//button//span[@class='p-dialog-header-close-icon ng-tns-c168-7 pi pi-times']"); 
         this.editCancelButton = page.locator("//span[normalize-space()='Cancel']");
         this.closeIcon = page.locator("//div//span[@class='p-dialog-header-close-icon ng-tns-c168-7 pi pi-times']"); 
         this.ClassTopic = page.locator("/html/body/app-root/app-session/p-dialog/div/div/div[2]/div[2]/label")
+        //this.batchNameInput = page.locator('#batchName');
+       
+        //  this.batchNameInput = page.getByRole('textbox', { name: 'Select a Batch Name' })
+        // this.batchNameInput = 
+        // this.batchNameField = page.locator('input[placeholder="Select a Batch Name"]');
+         this.batchDropDown = page.locator("//p-dropdown[@id='batchName']//div[contains(@class,'p-dropdown-trigger')]")
+         this.batchNameInput = page.locator("//li[@role='option']")
+         this.batchName = page.locator("//input[@placeholder='Select a Batch Name']");
+    
+        //  this.dropdownList = page.getByText('SMPO10');
+
+       //this.classTopicInput = page.locator('input[name="classTopic"]');
         this.batchDropDown = page.locator("//p-dropdown[@id='batchName']//div[contains(@class,'p-dropdown-trigger')]")
          this.batchNameInput = page.locator("//body//app-root//p-dropdownitem")
          this.disabledBatchname = page.locator("//p-dropdown[@id='batchName']")
         this.classTopicInput = page.locator('#classTopic');
        this.classDescriptionTextarea = page.locator('#classDescription');
        this.datePicker = page.locator("//p-calendar//input");
-       this.noOfClasses = page.locator("xpath=//html/body/app-root/app-session/p-dialog/div/div/div[2]/div[5]/input");
+      //  this.noOfClasses = page.locator("xpath=//html/body/app-root/app-session/p-dialog/div/div/div[2]/div[5]/input");
+       this.noOfClasses = page.locator("//input[@id='classNo']")
        this.staffnameDropdown = page.locator("//p-dropdown[@id='staffId']//div[contains(@class,'p-dropdown-trigger')]")
        this.staffNameOption = page.locator("//ul[@role='listbox']//li[@role='option']");
+       this.staffNameInput = page.locator("//input[@placeholder='Select a Staff Name']");
+      //  this.staffNameSelect = page.locator('#staffId').getByRole('button', { name: '' });
+      //  this.staffname =   page.getByRole('option', { name: 'Getha Takur' });
+      //  this.statusSelect = page.getByText('Status');
+      //  this.radioButtonStatus = page.locator('.p-radiobutton-box');
       // this.EditStaffNameDropDown = page.locator("//input[@placeholder='Select a Staff Name']")
       this.statusActive = page.locator("//div[contains(text(),'Active')]//div[2]");
       this.statusInactive = page.locator("//div[contains(text(),'Inactive')]//div[2]");
        this.notesTextarea = page.locator("//*[@id='classNotes']");
        this.recordingCheckbox = page.locator('#classRecordingPath');
+      //  this.successMessage = page.locator('text=Class added Successfully');
+       // Define locator for error messages
+       this.errorMessages = page.locator('.error-message');
+       this.emptyBatchNameErrorMsg = page.getByText('Batch Name is required.')
+       this.emptyClassTopicErrorMsg = page.getByText('Class Topic is required.')
+       this.emptyDateErrorMsg = page.getByText('Class Date is required.')
+       this.emptyNoOfClassesErrorMsg = page.getByText('No. of Classes is required.')
+       this.empyStaffNameErrorMsg = page.getByText('Staff Name is required.')
+       this.emptyStatusErrorMsg = page.getByText('Status is required.')
        this.errorMessages = page.locator('.p-invalid ng-star-inserted');
        this.successMsg = page.getByText("Successful");
         this.createdMsg = page.getByText("Class Created");
-       this.editIconButton = page.locator("(//button[contains(@icon, 'pi-pencil')])[1]")
+       this.editIconButton = page.locator("(//tbody/tr[1]/td[8]/div[1]/span[1]/button[1]")
        this.EditClassPopUp = page.locator("//div[@role='dialog']");
 
 
@@ -187,6 +217,9 @@ async addNew_ClassButton(){
 }
 async clickBatchDropdown() {
   await this.batchDropDown.click();
+  await this.batchNameInput.nth(2).click();
+ // await this.dropdownList.click();
+ // await this.dropdownList.locator(`text=${batchName}`).click(); 
 
 }
 async selectBatchName(){
@@ -225,6 +258,9 @@ async selectBatchName(){
 }
 async closeOverlay() {
   await this.page.mouse.click(0, 0); // Clicks at the top-left corner to dismiss the overlay
+}
+async clickDatePicker(){
+  await this.datePicker.click();
 }
 // async clickDatePicker(){
 //   await this.datePicker.click();
@@ -269,24 +305,11 @@ async getNoOfClassesValue() {
   return await this.noOfClasses.inputValue();  // Get value from the number of classes input field
 }
 
-//  async enterNumberOfClasses(numberOfClasses) {
-//   await this.numberOfClassesInput.click();
-//   await this.numberOfClassesInput.fill("2");
-//  //await this.noOfClassesInput.fill(numberOfClasses.toString());
-//  return await this.numberOfClassesInput.inputValue();
-//  }
-
-//  async selectStaffName(staffName) {
-
-//  await this.staffNameSelect.selectOption({ label: staffName });
-//  await this.staffNameSelect.fill(staffName).click();
-//  }
-
 async clickStaffNameDropdown(){
   await this.staffnameDropdown.click();
 }
 async selectStaffName(){
-  await this.staffNameOption.nth(2).click();
+  await this.staffNameOption.nth(1).click();
 }
  async selectStatus() {
   await this.statusActive.click();
@@ -298,6 +321,42 @@ async selectStaffName(){
   let sucessMsgCreation = successMsg1 + " " + successMsg2;
   return sucessMsgCreation;
 }
+async getNoOfClasses(){
+  return await this.noOfClasses.inputValue();
+}
+async VerifyDisabledWeekends(){
+  const today = new Date();
+  const currentMonth = today.getMonth(); // Get current month (0-based index)
+  const currentYear = today.getFullYear(); // Get current year
+
+  // Get all Saturdays and Sundays of the current month
+  let weekendDates = [];
+  let date = new Date(currentYear, currentMonth, 1);
+
+  while (date.getMonth() === currentMonth) {
+      if (date.getDay() === 6 || date.getDay() === 0) { // 6 = Saturday, 0 = Sunday
+          weekendDates.push(date.getDate());
+      }
+      date.setDate(date.getDate() + 1);
+  }
+
+  console.log(`Weekend Dates for ${today.toLocaleString('default', { month: 'long' })} ${currentYear}:`, weekendDates);
+
+  // Find all disabled dates in the current month
+  const disabledDatesElements = await this.page.locator("//td[not(contains(@class, 'p-datepicker-other-month'))]//span[contains(@class, 'p-disabled')]").all();
+
+  let totalDisabled = 0;
+
+  for (const element of disabledDatesElements) {
+      const dateText = await element.textContent();
+      if (weekendDates.includes(parseInt(dateText))) {
+          totalDisabled++;
+      }
+  }
+
+  return totalDisabled === weekendDates.length; // Return true if all weekends are disabled
+}
+
 
  async enterNotes(notes) {
   await this.notesTextarea.click();
@@ -387,9 +446,82 @@ async clickCloseIcon() {
 async getSuccessMessage() {
 return this.successMsg.textContent();
 }
+async enterMandatoryFeilds(DataInput,sheetName){
+        const testData = getDataByDataInput(filepath,sheetName,DataInput);
+        console.log(testData)
+        const classTopicInput = testData['classTopic'];
+        const classDescription = testData['classDescription'];
+        await this.clickBatchDropdown();
+        await this.classTopicInput.click();
+        await this.classTopicInput.fill(classTopicInput);
+        await this.classDescriptionTextarea.fill(classDescription);
+        await this.selectClassDates();
+        await this.closeOverlay();
+        await this.clickStaffNameDropdown();
+        await this.page.waitForTimeout(3000);
+        await this.selectStaffName();
+        await this.page.waitForTimeout(3000);
+        await this.selectStatus();
+        await this.clickSaveButton();
+  
+}
 
 async getErrorMessages() {
  return this.errorMessages.allTextContents();
+ }
+ async getEmptyClassFeildsError(){
+  let message = "";
+  if(await this.emptyBatchNameErrorMsg.isVisible()){
+    message = await this.emptyBatchNameErrorMsg.textContent();
+  } else if(await this.emptyClassTopicErrorMsg.isVisible()){
+    message = await this.emptyClassTopicErrorMsg.textContent();
+  } else if(await this.emptyDateErrorMsg.isVisible()){
+    message = await this.emptyDateErrorMsg.textContent()
+  } else if(await this.emptyNoOfClassesErrorMsg.isVisible()){
+    message = await this.emptyNoOfClassesErrorMsg.textContent();
+  } else if(await this.emptyStatusErrorMsg.isVisible()){
+    message = await this.emptyStatusErrorMsg.textContent();
+  } else if(await this.empyStaffNameErrorMsg.isVisible()){
+    message = await this.empyStaffNameErrorMsg.text();
+  }
+  console.log("Error message appeared is:", message);
+  return message;
+  
+ }
+ async emptyMessageHighlighterColor(){
+  const backgroundColor = await this.noOfClasses.evaluate(el => getComputedStyle(el).backgroundColor);
+
+  if (backgroundColor === "rgb(255, 0, 0)" || backgroundColor === "rgba(255, 0, 0, 1)") {
+      console.log("The field is highlighted in red.");
+  } else {
+      console.log("The field is NOT highlighted in red. Current color:", backgroundColor);
+  }
+
+  return backgroundColor;
+ }
+ async enterInvalidData(){
+  await this.batchName.fill('str@#$');
+  await this.classTopicInput.fill('shdb36#$');
+  await this.classDescriptionTextarea.fill('23543');
+  await this.clickDatePicker();
+  await this.selectClassDates();
+  await this.staffNameInput.fill('dg@#$');
+  await this.selectStatus();
+ }
+ async emptyFeildsSubmission(){
+  const errorMesages = this.page.locator("//small[contains(@class, 'p-invalid ng-star-inserted')]");
+  const errorCount = await errorMesages.count();
+  if (errorCount > 0) {
+    console.log("Error messages are displayed:");
+    for (let i = 0; i < errorCount; i++) {
+      const errorMsg = await errorMesages.nth(i).textContent();
+      console.log(errorMsg);
+    }
+    return true; 
+  } else {
+    console.log("No error messages displayed. Test failed.");
+    return false;  
+  }
  }
 
 async editIcon(){
