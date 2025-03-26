@@ -195,25 +195,32 @@ export class SortClassPage {
 //Search Class -----------------------------------
 
 async BtachNameSearch(){
+    await this.AddClass.click()
+    await this.closeAddclass.click()   
     await this.SearchBar.fill("Python101")
+    
 }
 async BtachNameInTable(){
-    await expect(this.batchnameList).toHaveText("Python101")
+    await expect(this.batchnameList.nth(0)).toHaveText("Python101")
     console.log("The Searched Class (Python101) sucessfully Displayed in Table")
 }
 async ClassTopicSearch(){
-    await this.SearchBar.fill("JavaTestPlaywright01")
+    await this.AddClass.click()
+    await this.CancelAddclass.click()
+    await this.SearchBar.fill("classDojo")
 }
 async ClassTopicInTable(){
-    await expect(this.classTopicList).toHaveText("JavaTestPlaywright01")
-    console.log("The Searched Class (JavaTestPlaywright01) sucessfully Displayed in Table")
+    await expect(this.classTopicList.nth(0)).toHaveText("classDojo")
+    console.log("The Searched Class (classDojo) sucessfully Displayed in Table")
 }
 async StaffNameSearch(){
-    await this.SearchBar.fill("Getha Takur")
+    await this.AddClass.click()
+    await this.CancelAddclass.click()
+    await this.SearchBar.fill("Kevin Thomas")
 }
 async StaffNameInTable(){
-    await expect(this.staffList).toHaveText("Getha Takur")
-    console.log("The Searched Class (Getha Takur) sucessfully Displayed in Table")
+    await expect(this.staffList.nth(0)).toHaveText("Kevin Thomas")
+    console.log("The Searched Class (Kevin Thomas) sucessfully Displayed in Table")
 }
 
 //Navigation Validation from Manage Class to other Pages-----------------------
