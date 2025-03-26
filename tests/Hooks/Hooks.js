@@ -1,5 +1,5 @@
 
-// import { setDefaultTimeout } from "@cucumber/cucumber";
+
 import { chromium } from "@playwright/test";
 import { Page } from "playwright";
 import { createBdd } from "playwright-bdd";
@@ -19,14 +19,19 @@ Before(async function(){
   this.poManager = new PageObjectManager(this.page)
 
 });
+<<<<<<< Updated upstream
  
+=======
+>>>>>>> Stashed changes
 
-  
-// });
+
+
 After(async function(){
   await this.page.screenshot({ path: `screenshots/screenshot-${Date.now()}.png`, fullPage: true });
+<<<<<<< Updated upstream
  // await this.browser.close();
 
+=======
+  
+>>>>>>> Stashed changes
 });
-// export { page, browser };
-// export { BeforeHook };
