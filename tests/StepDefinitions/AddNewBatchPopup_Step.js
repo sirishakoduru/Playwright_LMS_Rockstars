@@ -63,26 +63,27 @@ Given('Admin is on the Add new batch pop up', async function() {
     await this.addNewPage.selectProgramNameFromDropdown();
     await this.addNewPage.EnterMandatoryFields(DataInput,SheetName);
     await this.addNewPage.clickStatusActive();
+    await this.addNewPage.clickSaveButton();
   });
   
   Then('Admin should get a successful message', async function() {
     expect (this.addNewPage.getSuccessmessage()).toBeTruthy();
   });
   
-  When('Admin leaves blank one of the mandatory fields', async function() {
+  When('Admin leaves blank one of the mandatory fields with {string} and {string}', async function ({},DataInput, SheetName) {
     await this.addNewPage.clickProgramNameDropdown();
     await this.addNewPage.selectProgramNameFromDropdown();
-    await this.addNewPage.verifyWithEmptyMandatoryFeild('verifyWithEmptyMandatoryFeild');
+    await this.addNewPage.verifyWithEmptyMandatoryFeild(DataInput,SheetName);
   });
   
   Then('Admin should get a error message on the respective mandatory field', async function() {
     expect (this.addNewPage.verifyErrorMsgWithEmptyMandatoryFeild()).toBeTruthy();
   });
   
-  When('Admin enters the valid data to all the mandatory fields and click cancel button', async function() {
+  When('Admin enters the valid data to all the mandatory fields with {string} and {string} and click cancel button', async function ({}, DataInput, SheetName) {
     await this.addNewPage.clickProgramNameDropdown();
     await this.addNewPage.selectProgramNameFromDropdown();
-    await this.addNewPage.clickCancelButton('clickCancelButton');
+    await this.addNewPage.clickCancelButton(DataInput,SheetName);
   });
   
   Then('Admin can see the batch details popup closes without creating any batch', async function() {
@@ -143,18 +144,22 @@ Given('Admin is on the Add new batch pop up', async function() {
     expect (this.addNewPage.varifyBatchSuffixErrorMsg()).toBeTruthy();
   });
   
-  When('Admin enters the valid data to all the mandatory fields and click save button', async function() {
-   await this.addNewPage.EnterMandatoryFeildsforEdit('EnterMandatoryFeildsforEdit');
+  When('Admin enters the valid data to all the mandatory fields with {string},{string} and click save button', async function ({}, DataInput, SheetName) {    
+   await this.addNewPage.EnterMandatoryFeildsforEdit(DataInput, SheetName);
   });
 
   Then('Admin should get a successful message for editing the batch', async function() {
    expect (this.addNewPage.getEditSuccessmessage()).toBeTruthy();
   });
 
-  When('Admin enters the valid data to all the mandatory fields for edit and click cancel button', async function() {
-    await this.addNewPage.clickCancelButtonForEdit('clickCancelButtonForEdit');
+  When('Admin enters the valid data to all the mandatory fields {string},{string} for edit and click cancel button', async function ({}, DataInput, SheetName) {
+    await this.addNewPage.clickCancelButtonForEdit(DataInput, SheetName);
   });
   
   Then('Admin can see the batch details popup closes without editing the batch', async function() {
     expect (this.addNewPage.IsBatchPopupClosed()).toBeTruthy();
+  });
+
+  When('Admin clicks on program name dropdown and select program name', async function () {
+    
   });

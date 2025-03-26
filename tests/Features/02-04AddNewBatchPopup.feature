@@ -31,15 +31,21 @@ Examples:
 |   DataInput        | SheetName  |
 |   EnterMandatoryFeilds  | Batch|
 
-# Scenario: validate input data missing for mandatory fields
+# Scenario Outline: validate input data missing for mandatory fields
 # Given Admin is on the Batch Details Pop Up WIndow
-# When Admin leaves blank one of the mandatory fields
+# When Admin leaves blank one of the mandatory fields with "<DataInput>" and "<SheetName>"
 # Then Admin should get a error message on the respective mandatory field
+# Examples:
+# |   DataInput        | SheetName  |
+# |   verifyWithEmptyMandatoryFeild  | Batch|
 
-# Scenario: validate cancel button in Batch details pop up
+# Scenario Outline: validate cancel button in Batch details pop up
 # Given Admin is on the Batch Details Pop Up WIndow
-# When Admin enters the valid data to all the mandatory fields and click cancel button 
+# When Admin enters the valid data to all the mandatory fields with "<DataInput>" and "<SheetName>" and click cancel button 
 # Then Admin can see the batch details popup closes without creating any batch
+# Examples:
+# |   DataInput        | SheetName  |
+# |   clickCancelButton  | Batch|
 
 # Scenario: validate close icon on the batch details pop up
 # Given Admin is on the Batch Details Pop Up WIndow
