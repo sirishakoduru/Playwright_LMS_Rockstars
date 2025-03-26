@@ -9,7 +9,7 @@ const {test, expect } = require('@playwright/test')
 const playwright = require('@playwright/test');
 
 
-   Given('Admin is on the Manage class page', async function() {
+   Given('Admin is on the Manage class page for search', async function() {
     this.ClassPageObj = new ClassPage(this.page);
     await this.ClassPageObj.gotoLoginUrl();
     await this.ClassPageObj.login();

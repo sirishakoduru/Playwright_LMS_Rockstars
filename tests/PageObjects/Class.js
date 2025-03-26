@@ -73,7 +73,7 @@ export class ClassPage{
        this.errorMessages = page.locator('.p-invalid ng-star-inserted');
        this.successMsg = page.getByText("Successful");
         this.createdMsg = page.getByText("Class Created");
-       this.editIconButton = page.locator("(//button[contains(@icon, 'pi-pencil')])[1]")
+       this.editIconButton = page.locator("(//tbody/tr[1]/td[8]/div[1]/span[1]/button[1]")
        this.EditClassPopUp = page.locator("//div[@role='dialog']");
 
 

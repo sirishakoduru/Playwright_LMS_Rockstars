@@ -109,9 +109,9 @@ Given('Admin is on the Add new batch pop up', async function() {
    
   });
   
-  Given('Admin is on the Batch page', async function() {
-    console.log("Admin is on the batch page")
-  });
+  // Given('Admin is on the Batch page', async function() {
+  //   console.log("Admin is on the batch page")
+  // });
   
   When('Admin clicks the edit icon', async function() {
     await this.addNewPage.closeOverlay();
