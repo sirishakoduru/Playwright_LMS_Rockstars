@@ -8,11 +8,11 @@ Before(async function(){
   this.browser = await chromium.launch({ headless: false });
   this.context = await this.browser.newContext();
   this.page = await this.context.newPage();
+  this.page.setDefaultTimeout(60000);
   //creating an object of page object manager
   this.poManager = new PageObjectManager(this.page)
 
 });
-
 
 After(async function(){
   console.log("Closing the browser")
@@ -20,4 +20,5 @@ After(async function(){
   // await this.browser.close();
 
 });
+
 

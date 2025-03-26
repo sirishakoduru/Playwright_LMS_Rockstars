@@ -11,9 +11,9 @@ Scenario: Verify Admin is able to land on home page with invalid URL
 When Admin gives the invalid LMS portal URL
 Then Admin should recieve application error
 
-# Scenario: Verify for broken link
-# When Admin gives the correct LMS portal URL for login
-# Then HTTP response >= 400. Then the link is broken
+# # Scenario: Verify for broken link
+# # When Admin gives the correct LMS portal URL for login
+# # Then HTTP response >= 400. Then the link is broken
 
 Scenario: Verify the text spelling in the page 
 When Admin gives the correct LMS portal URL for login
