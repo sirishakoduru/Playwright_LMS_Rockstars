@@ -2,7 +2,7 @@ Feature: Search box Class
 
 Background: Admin is on the Manage Class page after login
 
-Given Admin is on the Manage class page
+Given Admin is on the Manage class page for search
 
 Scenario: Search class by Batch Name
 Given Admin is on the Manage class page

@@ -13,9 +13,9 @@ Given('Admin is on the Batch page', async function () {
    
   });
   
-  Given('Admin is on the batch page', async function() {
-    console.log("Admin is in the batch page")
-  });
+  // Given('Admin is on the batch page', async function() {
+  //   console.log("Admin is in the batch page")
+  // });
   
   When('Admin clicks {string} on the navigation bar', async function () {
     await this.addNewPage.closeOverlay();
@@ -26,9 +26,9 @@ Given('Admin is on the Batch page', async function () {
     expect (this.addNewPage.verifyaddNewPageBtn).toBeTruthy();
   });
   
-  Given('Admin is on the home page', async function() {
-    console.log("Admin is on the home page")
-  });
+  // Given('Admin is on the home page', async function() {
+  //   console.log("Admin is on the home page")
+  // });
   
   When('Admin clicks on {string} under the {string} menu bar', async function () {
     await this.addNewPage.ClickBatchButton();

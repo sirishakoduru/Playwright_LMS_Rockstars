@@ -635,10 +635,11 @@ export class ProgramPage {
     }
 
     async visibilityOfEditDeleteIcons() {
+        const tablerows = await this.tableRows;
         const rowCount = await this.tableRows.count()
 
         for (let i = 0; i < rowCount; i++) {
-            const row = tableRows.nth(i)
+            const row = tablerows.nth(i)
 
             const editIcon = row.locator(this.editIcons)
             const deleteIcon = row.locator(this.deleteIcons)
@@ -678,7 +679,7 @@ export class ProgramPage {
     async verifyAllCheckBoxes() {
         const count = await this.allCheckBoxes.count();  // Get the number of checkboxes
         for (let i = 0; i < count; i++) {
-            expect(await this.allCheckBoxes).nth(i).not.toBeChecked()
+           await expect(this.allCheckBoxes.nth(i)).not.toBeChecked()
         }
         console.log("All Checkboxes are verified - Unchecked");
     }

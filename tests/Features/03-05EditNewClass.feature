@@ -1,7 +1,7 @@
 Feature: Validate row level edit icon
 
 Background: Admin Is on the Manage class page after login
-           Given Admin is on the Manage class page
+           Given Admin is on the Manage class page of class
            When Admin clicks on the edit icon 
            
 Scenario: Validate row level edit icon
