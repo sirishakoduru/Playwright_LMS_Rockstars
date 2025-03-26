@@ -14,8 +14,10 @@ export class LoginPage {
         this.invalidurl=process.env.InvalidURL 
         this.username = page.locator('#username');
         this.userText = page.getByText('User',{exact:truncate})
+        this.userStar = page.locator("//div[1]//span//label//span[2][text()=' *'][1]").first();
         this.password = page.locator('#password');
         this.pwdText =page.getByText('Password',{exact:truncate})
+        this.passwordStar = page.locator("label[for='password'] .mat-placeholder-required");
         this.login_btn = page.locator('#login');
         this.loginText =page.getByText('Login',{exact:truncate})
         this.LogingInPage = page.locator('#signin-content');       
@@ -160,6 +162,14 @@ export class LoginPage {
          expect(this.pwdText).toHaveText('*'); 
         
      }
+     async redStar(){
+        const actualtext = await this.userStar.textContent();
+        return actualtext;
+  }
+  async passwordRedStar(){
+    const actualtext = await this.passwordStar.textContent();
+    return actualtext;
+}
 
      async ExtrctTextFromImage(){
     // Take a screenshot of the image
