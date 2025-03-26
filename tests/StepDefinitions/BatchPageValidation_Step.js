@@ -5,18 +5,22 @@ const { Given, When, Then ,test} = createBdd();
 require('dotenv').config();
 // this.batchPage = new BatchPage(this.page);
 
-// Given('Admin is on the home page after login', async function() {
-//     this.batchPageobj = new BatchPage(this.page);
-//     await this.batchPageobj.gotoLoginUrl();
-//     await this.batchPageobj.login();
-// });
+Given('Admin is on the home page after login for batch', async function() {
+    this.batchPageobj = new BatchPage(this.page);
+    await this.batchPageobj.gotoLoginUrl();
+    await this.batchPageobj.login();
+});
 
 Given('Admin is on the home page', async function() {
     this.batchPageobj = new BatchPage(this.page);
+    console.log("admin is on the home page")
   //  await this.batchPageobj.gotoLoginUrl();
   //  this.batchPageobj.login();
   //  await this.batchPageobj.gotoHomeUrl();
-     await this.batchPageobj.clickBatch();
+    //  await this.batchPageobj.clickBatch();
+});
+When('Admin Clicks on the Batch menu from the header for batch', async function() {
+  await this.batchPageobj.clickBatch();
 });
 
 Then('Admin should see the {string} Title', async function() {
