@@ -87,44 +87,56 @@ export class ProgramPage {
         //for edit
         this.searchboxEdit=page.locator("#filterGlobal")
         this.editIconClick=page.locator("//tbody/tr[1]/td[5]/div[1]/span[1]/button[1]")
-        //this.statusRadioButtonInactive = page.locator('.p-radiobutton-box').second()
-
-        this.statusRadioInactive=page.locator("//input[@type='radio'][@id='Inactive']")
+        
+        // delete
+        this.deleticon = page.locator('//tr[1]//button[@id = "deleteProgram"]')
+        this.deleteConfirmation=page.locator("//div[@class='p-dialog-header ng-tns-c204-2 ng-star-inserted']")
+        this.yesButton = page.getByText('Yes')
+        this.noButton = page.getByText('No')
 
     }
 
-    async waitForTimeout() {
-        if (this.page) {
-            await this.page.waitForTimeout(6000);
-        } else {
-            console.log('Page object is undefined!');
-        }
+    async clickYesButton(){
+    await (this.yesButton).click()
+    }
+    async clickNoButton(){
+    await (this.noButton).click()
+        
+    }
+    async clickDeleteIcon(){
+        await this.closeOverlay()
+        await (this.deleticon).click()
+    }
+    async visibilityOfDeleteConfirmation(){
+        expect(await this.deleteConfirmation).toBeVisible()
+       }
+
+    async searchDeletedProgramName() {
+        console.log("Program name from env file : ", process.env.DeleteProgram)
+        await this.searchBox.fill(process.env.DeleteProgram)
+
     }
 
+    async searchProgramNameToDelete() {
+        console.log("Program name from env file : ", process.env.DeleteProgram)
+        await this.searchBox.fill(process.env.DeletedProgramName)
+
+    }
+
+
+    async clickRadioButton(){
+        await (this.statusRadioButton).click()
+    }
+    async clickOnEditIcon(){
+        await this.editIconClick.click()
+    }
+   
+  
     async clickEditIcon() {
         await this.editIcons.click()
     }
-    async editValidProgramStatus(DataInput, sheetname){
-        await this.closeOverlay()
-        const testData = getDataByDataInput(filepath, sheetname, DataInput)
-        console.log(testData)
-        const existingName = testData["Status"]
-        const toUpdateStatus = await this.statusRadioButtonInactive.click()
 
-        await this.searchboxEdit.click()
-        await this.searchboxEdit.fill(existingName)
-        //await this.clickEditIcon()
-        await this.editIconClick.click()
-        
-        await this.statusRadioButtonInactive.fill(toUpdateStatus)
-        
-       // await this.page.waitForLoadState('load'); 
 
-        //await this.page.waitForTimeout();
-        // this.page.waitForTimeout(6000)
-       //await this.clickSaveButton()
-
-    }
     async editValidProgramDescription(DataInput, sheetname){
         await this.closeOverlay()
         const testData = getDataByDataInput(filepath, sheetname, DataInput)
@@ -327,29 +339,7 @@ export class ProgramPage {
 
 
     }
-    // async visibilityofPName(){
-
-    //     await expect(this.programNameData).toBeVisible()
-    //     const nameText=await this.programNameData.textContent()
-    //     console.log(`Program Name : ${nameText}`)
-
-    // }
-
-    // async visibilityofProgramDesc(){
-
-    //     await expect(this.programDescData).toBeVisible()
-    //     const descText=await this.programDescData.textContent()
-    //     console.log(`Program Description : ${descText}`)
-
-    // }
-
-    // async visibilityofProgramStatus(){
-
-    //     await expect(this.programStatusData).toBeVisible()
-    //     const statusText=await this.programStatusData.textContent()
-    //     console.log(`Program Status : ${statusText}`)
-
-    // }
+   
     async searchByInvalidProgramName() {
         console.log("InvalidProgram name from env file : ", process.env.InvalidProgramName)
         await this.searchBox.fill(process.env.InvalidProgramName)

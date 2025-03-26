@@ -31,7 +31,8 @@ Feature: Manage Program - Edit Program
     Scenario Outline: Verify edit Program Name
         When Admin edits the program name and click on save button from "<DataInput>" and "<sheetname>"
         Then Updated program name is seen by the Admin
-         Examples:
+        Examples:
+
             | DataInput   | sheetname |
             | editProgram | Program   |
 
@@ -39,9 +40,10 @@ Feature: Manage Program - Edit Program
     Scenario Outline: Verify edit Description
         When Admin edits the description text and click on save button from "<DataInput>" and "<sheetname>"
         Then Admin can see the description is updated
-     Examples:
-                | DataInput   | sheetname |
-                | editProgram | Program   |
+
+        Examples:
+            | DataInput   | sheetname |
+            | editProgram | Program   |
 
     Scenario Outline: Verify edit Status
         When Admin can change the status of the program from "<DataInput>" and "<sheetname>" and click on save button
@@ -50,31 +52,31 @@ Feature: Manage Program - Edit Program
             | DataInput   | sheetname |
             | editProgram | Program   |
 
-Scenario Outline: Verify Admin is able to click Save
-    When Admin click on save button of the updated program from "<DataInput>" and "<sheetname>"
-    Then Admin can see the updated program details
-    Examples:
-        | DataInput   | sheetname |
-        | editprogram | Program   |
+    Scenario Outline: Verify Admin is able to click Save
+        When Admin click on save button of the updated program from "<DataInput>" and "<sheetname>"
+        Then Admin can see the updated program details
+        Examples:
+            | DataInput   | sheetname |
+            | editProgram | Program   |
 
 
-Scenario Outline: Verify Admin is able to click Cancel
-    When Admin click on cancel button of the updated program from "<DataInput>" and "<sheetname>"
-    Then Admin can see the Program details form disappears
-    Examples:
-        | DataInput   | sheetname |
-        | editprogram | Program   |
+    Scenario Outline: Verify Admin is able to click Cancel
+        When Admin click on cancel button of the updated program from "<DataInput>" and "<sheetname>"
+        Then Admin can see the Program details form disappears
+        Examples:
+            | DataInput   | sheetname |
+            | editProgram | Program   |
 
-Scenario Outline: Verify edited Program details
-    When Admin searches with newly updated Program Name from "<DataInput>" and "<sheetname>"
-    Then Admin verifies that the details are correctly updated from "<DataInput>" and "<sheetname>"
-    Examples:
-        | DataInput   | sheetname |
-        | editprogram | Program   |
+    Scenario Outline: Verify edited Program details
+        When Admin searches with newly updated Program Name from "<DataInput>" and "<sheetname>"
+        Then Admin verifies that the details are correctly updated from "<DataInput>" and "<sheetname>"
+        Examples:
+            | DataInput   | sheetname |
+            | editProgram | Program   |
 
-Scenario Outline: Verify close the window with "X"
-    When Admin Click on X button of the updated program from "<DataInput>" and "<sheetname>"
-    Then Admin can see Program Details form disappears
-    Examples:
-        | DataInput   | sheetname |
-        | editprogram | Program   |
+    Scenario Outline: Verify close the window with "X"
+        When Admin Click on X button of the updated program from "<DataInput>" and "<sheetname>"
+        Then Admin can see Program Details form disappears
+        Examples:
+            | DataInput   | sheetname |
+            | editProgram | Program   |
