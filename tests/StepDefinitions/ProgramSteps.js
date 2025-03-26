@@ -298,6 +298,8 @@ When('Admin Click on X button', async function ({ }) {
 
 });
 
+
+
 ///excel///
 //entering program name
 
@@ -428,7 +430,11 @@ Then('Admin can see the description is updated', async function({}) {
 //to edit status
 When('Admin can change the status of the program from {string} and {string} and click on save button', async function ({}, DataInput, sheetname) {
   const programPage = this.poManager.getProgramPage()
-  programPage.editValidProgramStatus(DataInput, sheetname)
+  await programPage.searchingToEditProgramName(DataInput, sheetname)
+  await programPage.clickOnEditIcon()
+  await programPage.clickRadioButton()
+  await programPage.clickSaveButton()
+
 
 });
 
@@ -439,6 +445,127 @@ Then('Status updated can be viewed by the Admin', async function ({}) {
 
 
 });
+
+When('Admin click on save button of the updated program from {string} and {string}', async function({}, DataInput, sheetname) {
+  const programPage = this.poManager.getProgramPage()
+  await programPage.searchingToEditProgramName(DataInput, sheetname)
+  await programPage.clickOnEditIcon()
+  await programPage.clickSaveButton()
+
+
+});
+
+Then('Admin can see the updated program details', async function ({}){
+  const programPage = this.poManager.getProgramPage()
+  const successMsg = await programPage.getSuccessMsg()
+  expect(await successMsg).toBe("Successful")
+
+});
+
+When('Admin click on cancel button of the updated program from {string} and {string}', async function({}, DataInput, sheetname){
+  const programPage = this.poManager.getProgramPage()
+  await programPage.searchingToEditProgramName(DataInput, sheetname)
+  await programPage.clickOnEditIcon()
+ await programPage.clickCancelButton()
+
+});
+
+Then('Admin can see the Program details form disappears', async function ({}){
+  const programPage = this.poManager.getProgramPage()
+
+  const dialogBox = await programPage.getDialogBox()
+  await expect(dialogBox).not.toBeVisible()
+
+});
+
+When('Admin searches with newly updated Program Name from {string} and {string}', async function ({}, DataInput, sheetname) {
+  const programPage = this.poManager.getProgramPage()
+  await programPage.searchingToEditProgramName(DataInput, sheetname)
+
+});
+
+Then('Admin verifies that the details are correctly updated from {string} and {string}', async function({}, DataInput, sheetname) {
+console.log("Verify the values displayed")
+
+});
+
+When('Admin Click on X button of the updated program from {string} and {string}', async function({}, DataInput, sheetname) {
+  const programPage = this.poManager.getProgramPage()
+
+  await programPage.searchingToEditProgramName(DataInput, sheetname)
+  await programPage.clickOnEditIcon()
+  await programPage.clickCloseButton()
+
+});
+
+///////////////////delete program////////////////
+
+
+When('Admin clicks on delete button for a program', async function({}) {
+ const programPage = this.poManager.getProgramPage()
+ await programPage.clickDeleteIcon()
+
+});
+
+Then('Admin will get confirm deletion popup', async function({}){
+  const programPage = this.poManager.getProgramPage()
+  await programPage.visibilityOfDeleteConfirmation()
+
+});
+
+Given('Admin is on Confirm deletion form', async function({}) {
+  const programPage = this.poManager.getProgramPage()
+  await programPage.searchProgramNameToDelete()
+  //await programPage.closeOverlay()
+  await programPage.clickDeleteIcon()
+  await programPage.visibilityOfDeleteConfirmation()
+
+});
+
+When('Admin clicks on {string} button', async function({}, arg)  {
+  const programPage = this.poManager.getProgramPage()
+  await programPage.clickYesButton()
+
+});
+
+Then('Admin can see {string} Program Deleted message', async function({}, successmessage)  {
+  const programPage = this.poManager.getProgramPage()
+  const successMsg = await programPage.getSuccessMsg()
+  expect(await successMsg).toBe(successmessage)
+
+});
+
+When('Admin Searches for {string}', async function ({}, arg)  {
+  const programPage = this.poManager.getProgramPage()
+  await programPage.searchProgramNameToDelete()
+
+});
+
+Given('Admin is on Program Confirm Deletion Page after selecting a program to delete', async function({})  {     
+  const programPage = this.poManager.getProgramPage()
+  await programPage.clickDeleteIcon()
+
+});
+
+When('Admin clicks on No button', async function({})  {
+  const programPage = this.poManager.getProgramPage()
+  await programPage.clickNoButton()
+
+});
+
+Then('Admin can see Confirmation form disappears', async function ({})  {
+  const programPage = this.poManager.getProgramPage()
+  expect(await programPage.visibilityOfDeleteConfirmation()).toBeFalsy()
+
+});
+
+Then('Admin can see Confirm Deletion form disappear', async function ({})  {
+  const programPage = this.poManager.getProgramPage()
+  expect(await programPage.visibilityOfDeleteConfirmation()).toBeFalsy()
+
+
+});
+
 
 
 /////////////// Pagination////////////////////
