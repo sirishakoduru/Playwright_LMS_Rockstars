@@ -207,11 +207,11 @@ async BtachNameInTable(){
 async ClassTopicSearch(){
     await this.AddClass.click()
     await this.CancelAddclass.click()
-    await this.SearchBar.fill("classDojo")
+    await this.SearchBar.fill("RoseFlower01")
 }
 async ClassTopicInTable(){
-    await expect(this.classTopicList.nth(0)).toHaveText("classDojo")
-    console.log("The Searched Class (classDojo) sucessfully Displayed in Table")
+    await expect(this.classTopicList.nth(0)).toHaveText("RoseFlower01")
+    console.log("The Searched Class (RoseFlower01) sucessfully Displayed in Table")
 }
 async StaffNameSearch(){
     await this.AddClass.click()

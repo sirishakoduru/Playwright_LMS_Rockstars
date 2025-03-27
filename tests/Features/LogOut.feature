@@ -2,8 +2,8 @@
 Feature:Validation on Logout button
 
 Background: Admin is logged into the application
-Given Admin is on login Page in LMS
-When Admin enter valid data in all field and  "<DataInput>" clicks login button
+Given Admin is on login Page in LMS for Logout
+When Admin enter valid data in all field and  "<DataInput>" clicks login button for logout
 
 Scenario: Verify logout function
 Given Admin is in home page
