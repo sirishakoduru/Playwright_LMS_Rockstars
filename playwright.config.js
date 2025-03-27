@@ -35,11 +35,11 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   // @ts-ignore
-  workers: 1,
+  //workers: 1,
   reporter: [["line"], ["allure-playwright"],["html"]],
   globalTimeout: 3_600_000,
   expect: {
-    timeout: 10_000,
+  timeout: 10_000,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
