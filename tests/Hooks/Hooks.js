@@ -16,7 +16,7 @@ Before(async function(){
 
 After(async function(){
   console.log("Closing the browser")
-  // await this.page.screenshot({ path: `screenshots/screenshot-${Date.now()}.png`, fullPage: true });
+  await this.page.screenshot({ path: `screenshots/screenshot-${Date.now()}.png`, fullPage: true });
   // await this.browser.close();
 
 });

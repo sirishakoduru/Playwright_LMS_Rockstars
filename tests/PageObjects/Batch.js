@@ -12,7 +12,8 @@ export class BatchPage {
         this.batchBtn = page.locator("xpath=//div//button[2][@class='mat-focus-indicator mat-menu-trigger mat-button mat-button-base']");
         this.LMSTitle = page.getByText(' LMS - Learning Management System ')
         this.heading = page.getByText(' Manage Batch')
-        this.deleteButton = page.locator("xpath=//button//span[@class= 'p-button-icon pi pi-trash']/..")
+        this.deleteButton = page.locator("xpath=//button//span[@class= 'p-button-icon pi pi-trash']/..");
+        this.titleDeleteButton = page.locator("xpath=//mat-card-title//span[@class= 'p-button-icon pi pi-trash']/..");
         this.nextPagePagination = page.locator("xpath=//button//span[@class='p-paginator-icon pi pi-angle-right']/..")
         this.allEditIcons = page.locator("xpath=//table/tbody/tr//button[contains(@icon, 'pi-pencil')]")
         this.allRows = page.locator("xpath = //table/tbody/tr")
@@ -57,7 +58,7 @@ export class BatchPage {
         
     }
     async veriftDeleteButton(){
-        return (this.deleteButton)
+        return (this.titleDeleteButton)
     }
     async verifyPagenaginationIsEnabled(){
         return (this.nextPagePagination)

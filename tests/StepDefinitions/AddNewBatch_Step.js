@@ -32,7 +32,7 @@ Given('Admin is on the Batch page', async function () {
   
   When('Admin clicks on {string} under the {string} menu bar', async function () {
     await this.addNewPage.ClickBatchButton();
-   await this.addNewPage.clickAddNewBatch();
+    await this.addNewPage.clickAddNewBatch();
   });
   
   Then('Admin should see the Batch Details pop up window', async function () {
