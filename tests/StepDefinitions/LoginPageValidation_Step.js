@@ -83,7 +83,9 @@ const playwright = require('@playwright/test');
 
   Then('Admin should see asterisk mark symbol next to text for mandatory fields', async function() {
     const LoginPage = this.poManager.getLoginPage()
-    await LoginPage.MandatoryFieldAstrerisk();
+    // await LoginPage.MandatoryFieldAstrerisk();
+    const passwordAsterisk = await LoginPage.redStar();
+    expect (await passwordAsterisk).toBe(" *")
     
   });
   
@@ -94,7 +96,8 @@ const playwright = require('@playwright/test');
   
   Then('Admin should see asterisk mark symbol next to password text', async function() {
     const LoginPage = this.poManager.getLoginPage()
-    await LoginPage.PwdFieldAstrerisk();
+    const passwordAsterisk = await LoginPage.passwordRedStar();
+    expect (await passwordAsterisk).toBe(" *")
   });
   
   // Then('Admin should see input field on the centre of the page', async function() {
