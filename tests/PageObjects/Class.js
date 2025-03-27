@@ -272,7 +272,7 @@ async selectClassDates() {
 
   const year = "2025";
   const month = "March";
-  const date = "26";
+  const date = "28";
 
   while (true) {
       const currentYear = await this.page.locator("//div//span[contains(@class, 'p-datepicker-year')]").textContent();
